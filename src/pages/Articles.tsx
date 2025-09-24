@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Filter, Clock, User, Tag } from 'lucide-react';
+import {
+  MagnifyingGlassIcon,
+  FunnelIcon,
+  ClockIcon,
+  UserIcon,
+  TagIcon,
+} from '@heroicons/react/24/outline';
 import { useArticles } from '../hooks/useArticles';
 import type { SearchFilters } from '../types';
 
@@ -9,255 +15,663 @@ import type { SearchFilters } from '../types';
  * Displays paginated list of articles with filters and search
  */
 export default function Articles() {
-    const [showFilters, setShowFilters] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [selectedTag, setSelectedTag] = useState('');
-    const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTag, setSelectedTag] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('');
 
-    const filters: SearchFilters = {
-        query: searchQuery || undefined,
-        tags: selectedTag ? [selectedTag] : undefined,
-        language: selectedLanguage || undefined,
-        type: 'article',
-    };
+  const filters: SearchFilters = {
+    query: searchQuery || undefined,
+    tags: selectedTag ? [selectedTag] : undefined,
+    language: selectedLanguage || undefined,
+    type: 'article',
+  };
 
-    const { articles, loading, error, setFilters } = useArticles(filters);
+  const { articles, loading, error, setFilters } = useArticles(filters);
 
-    const handleSearch = (query: string) => {
-        setSearchQuery(query);
-        setFilters({ ...filters, query });
-    };
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    setFilters({ ...filters, query });
+  };
 
-    const handleTagFilter = (tag: string) => {
-        setSelectedTag(tag === selectedTag ? '' : tag);
-        setFilters({ ...filters, tags: tag === selectedTag ? undefined : [tag] });
-    };
+  const handleTagFilter = (tag: string) => {
+    setSelectedTag(tag === selectedTag ? '' : tag);
+    setFilters({ ...filters, tags: tag === selectedTag ? undefined : [tag] });
+  };
 
-    const handleLanguageFilter = (language: string) => {
-        setSelectedLanguage(language === selectedLanguage ? '' : language);
-        setFilters({
-            ...filters,
-            language: language === selectedLanguage ? undefined : language,
-        });
-    };
+  const handleLanguageFilter = (language: string) => {
+    setSelectedLanguage(language === selectedLanguage ? '' : language);
+    setFilters({
+      ...filters,
+      language: language === selectedLanguage ? undefined : language,
+    });
+  };
 
-    const clearFilters = () => {
-        setSearchQuery('');
-        setSelectedTag('');
-        setSelectedLanguage('');
-        setFilters({ type: 'article' });
-    };
+  const clearFilters = () => {
+    setSearchQuery('');
+    setSelectedTag('');
+    setSelectedLanguage('');
+    setFilters({ type: 'article' });
+  };
 
-    return (
-        <div className='min-h-screen bg-slate-900'>
-            <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
-                {/* Header */}
-                <div className='mb-8'>
-                    <h1 className='text-3xl md:text-4xl font-display font-bold text-white mb-4'>
-                        Artigos
-                    </h1>
-                    <p className='text-lg text-gray-300'>
-                        Explore nossa coleção de artigos técnicos e tutoriais
-                    </p>
-                </div>
+  // Estilos para a página
+  const pageStyle = {
+    minHeight: '100vh',
+    backgroundColor: '#0f172a',
+    padding: '2rem 0',
+  };
 
-                {/* Search and Filters */}
-                <div className='bg-slate-800/50 rounded-2xl p-6 mb-8 border border-slate-700'>
-                    <div className='flex flex-col lg:flex-row gap-4'>
-                        {/* Search Bar */}
-                        <div className='flex-1 relative'>
-                            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400' />
-                            <input
-                                type='text'
-                                placeholder='Buscar artigos...'
-                                value={searchQuery}
-                                onChange={e => handleSearch(e.target.value)}
-                                className='w-full pl-10 pr-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                            />
-                        </div>
+  const containerStyle = {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 1rem',
+  };
 
-                        {/* Filter Toggle */}
-                        <button
-                            onClick={() => setShowFilters(!showFilters)}
-                            className='flex items-center px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white hover:bg-slate-600 transition-colors duration-200'
-                        >
-                            <Filter className='h-5 w-5 mr-2' />
-                            Filtros
-                        </button>
-                    </div>
+  const headerStyle = {
+    textAlign: 'center' as const,
+    marginBottom: '3rem',
+  };
 
-                    {/* Filters Panel */}
-                    {showFilters && (
-                        <div className='mt-6 pt-6 border-t border-slate-700'>
-                            <div className='grid md:grid-cols-2 gap-6'>
-                                {/* Tags */}
-                                <div>
-                                    <label className='block text-sm font-medium text-gray-300 mb-3'>
-                                        Tags
-                                    </label>
-                                    <div className='flex flex-wrap gap-2'>
-                                        {[
-                                            'React',
-                                            'TypeScript',
-                                            'Node.js',
-                                            'Python',
-                                            'JavaScript',
-                                            'CSS',
-                                        ].map(tag => (
-                                            <button
-                                                key={tag}
-                                                onClick={() => handleTagFilter(tag)}
-                                                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 ${selectedTag === tag
-                                                    ? 'bg-cyan-600 text-white'
-                                                    : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
-                                                    }`}
-                                            >
-                                                {tag}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
+  const titleStyle = {
+    fontSize: '3rem',
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: '1rem',
+    background: 'linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+  };
 
-                                {/* Languages */}
-                                <div>
-                                    <label className='block text-sm font-medium text-gray-300 mb-3'>
-                                        Linguagens
-                                    </label>
-                                    <div className='flex flex-wrap gap-2'>
-                                        {[
-                                            'JavaScript',
-                                            'TypeScript',
-                                            'Python',
-                                            'Java',
-                                            'C++',
-                                            'Go',
-                                        ].map(language => (
-                                            <button
-                                                key={language}
-                                                onClick={() => handleLanguageFilter(language)}
-                                                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 ${selectedLanguage === language
-                                                    ? 'bg-cyan-600 text-white'
-                                                    : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
-                                                    }`}
-                                            >
-                                                {language}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
+  const subtitleStyle = {
+    fontSize: '1.25rem',
+    color: '#94a3b8',
+    maxWidth: '600px',
+    margin: '0 auto',
+    lineHeight: '1.6',
+  };
 
-                            {/* Clear Filters */}
-                            <div className='mt-6 flex justify-end'>
-                                <button
-                                    onClick={clearFilters}
-                                    className='px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors duration-200'
-                                >
-                                    Limpar filtros
-                                </button>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Articles Grid */}
-                {loading ? (
-                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                        {[...Array(6)].map((_, i) => (
-                            <div
-                                key={i}
-                                className='bg-slate-800/50 rounded-2xl p-6 border border-slate-700 animate-pulse'
-                            >
-                                <div className='h-4 bg-slate-700 rounded mb-4'></div>
-                                <div className='h-3 bg-slate-700 rounded mb-2'></div>
-                                <div className='h-3 bg-slate-700 rounded mb-4'></div>
-                                <div className='flex gap-2 mb-4'>
-                                    <div className='h-6 w-16 bg-slate-700 rounded-full'></div>
-                                    <div className='h-6 w-20 bg-slate-700 rounded-full'></div>
-                                </div>
-                                <div className='h-8 bg-slate-700 rounded'></div>
-                            </div>
-                        ))}
-                    </div>
-                ) : error ? (
-                    <div className='text-center py-12'>
-                        <p className='text-red-400 text-lg'>{error}</p>
-                    </div>
-                ) : (
-                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                        {articles.map(article => (
-                            <article
-                                key={article.id}
-                                className='bg-slate-800/50 rounded-2xl p-6 border border-slate-700 hover:border-cyan-500 transition-colors duration-200 group'
-                            >
-                                <div className='mb-4'>
-                                    <h3 className='text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-200'>
-                                        <Link to={`/artigos/${article.slug}`}>{article.title}</Link>
-                                    </h3>
-                                    <p className='text-gray-300 text-sm line-clamp-3'>
-                                        {article.excerpt}
-                                    </p>
-                                </div>
-
-                                <div className='flex flex-wrap gap-2 mb-4'>
-                                    {article.tags.slice(0, 3).map(tag => (
-                                        <span
-                                            key={tag}
-                                            className='inline-flex items-center px-2 py-1 bg-slate-700 text-cyan-400 text-xs font-medium rounded-full'
-                                        >
-                                            <Tag className='h-3 w-3 mr-1' />
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                <div className='flex items-center justify-between text-sm text-gray-400'>
-                                    <div className='flex items-center'>
-                                        <User className='h-4 w-4 mr-1' />
-                                        {article.author.name}
-                                    </div>
-                                    <div className='flex items-center'>
-                                        <Clock className='h-4 w-4 mr-1' />
-                                        {article.readingTime} min
-                                    </div>
-                                </div>
-
-                                <div className='mt-4'>
-                                    <Link
-                                        to={`/artigos/${article.slug}`}
-                                        className='inline-flex items-center text-cyan-400 hover:text-cyan-300 font-medium text-sm transition-colors duration-200'
-                                    >
-                                        Ler artigo
-                                        <svg
-                                            className='ml-1 h-4 w-4'
-                                            fill='none'
-                                            stroke='currentColor'
-                                            viewBox='0 0 24 24'
-                                        >
-                                            <path
-                                                strokeLinecap='round'
-                                                strokeLinejoin='round'
-                                                strokeWidth={2}
-                                                d='M9 5l7 7-7 7'
-                                            />
-                                        </svg>
-                                    </Link>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
-                )}
-
-                {/* Empty State */}
-                {!loading && !error && articles.length === 0 && (
-                    <div className='text-center py-12'>
-                        <p className='text-gray-400 text-lg'>Nenhum artigo encontrado</p>
-                        <p className='text-gray-500 text-sm mt-2'>
-                            Tente ajustar os filtros ou fazer uma nova busca
-                        </p>
-                    </div>
-                )}
-            </div>
+  return (
+    <div style={pageStyle}>
+      <div style={containerStyle}>
+        {/* Header */}
+        <div style={headerStyle}>
+          <h1 style={titleStyle}>Artigos</h1>
+          <p style={subtitleStyle}>
+            Explore nossa coleção de artigos técnicos e tutoriais
+          </p>
         </div>
-    );
+
+        {/* Search and Filters */}
+        <div
+          style={{
+            backgroundColor: 'rgba(30, 41, 59, 0.5)',
+            borderRadius: '1.5rem',
+            padding: '2rem',
+            marginBottom: '3rem',
+            border: '1px solid #334155',
+            backdropFilter: 'blur(10px)',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              gap: '1rem',
+              alignItems: 'stretch',
+            }}
+          >
+            {/* Search Bar */}
+            <div
+              style={{
+                position: 'relative',
+                flex: 1,
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  left: '1rem',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: '#94a3b8',
+                  zIndex: 1,
+                }}
+              >
+                <MagnifyingGlassIcon
+                  style={{ width: '20px', height: '20px' }}
+                />
+              </div>
+              <input
+                type='text'
+                placeholder='Buscar artigos...'
+                value={searchQuery}
+                onChange={e => handleSearch(e.target.value)}
+                style={{
+                  width: '100%',
+                  height: '56px',
+                  padding: '1rem 1rem 1rem 3rem',
+                  backgroundColor: '#1e293b',
+                  border: '1px solid #475569',
+                  borderRadius: '1rem',
+                  color: 'white',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  transition: 'all 0.2s ease',
+                  boxSizing: 'border-box',
+                }}
+                onFocus={e => {
+                  e.target.style.borderColor = '#22d3ee';
+                  e.target.style.boxShadow =
+                    '0 0 0 3px rgba(34, 211, 238, 0.1)';
+                }}
+                onBlur={e => {
+                  e.target.style.borderColor = '#475569';
+                  e.target.style.boxShadow = 'none';
+                }}
+              />
+            </div>
+
+            {/* Filter Toggle */}
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '56px',
+                padding: '0 1.5rem',
+                backgroundColor: '#1e293b',
+                border: '1px solid #475569',
+                borderRadius: '1rem',
+                color: 'white',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                gap: '0.5rem',
+                minWidth: '120px',
+                boxSizing: 'border-box',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.backgroundColor = '#334155';
+                e.currentTarget.style.borderColor = '#22d3ee';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.backgroundColor = '#1e293b';
+                e.currentTarget.style.borderColor = '#475569';
+              }}
+            >
+              <FunnelIcon style={{ width: '18px', height: '18px' }} />
+              Filtros
+            </button>
+          </div>
+
+          {/* Filters Panel */}
+          {showFilters && (
+            <div
+              style={{
+                marginTop: '2rem',
+                paddingTop: '2rem',
+                borderTop: '1px solid #334155',
+              }}
+            >
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                  gap: '2rem',
+                }}
+              >
+                {/* Tags */}
+                <div>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: '0.875rem',
+                      fontWeight: '500',
+                      color: '#cbd5e1',
+                      marginBottom: '1rem',
+                    }}
+                  >
+                    Tags
+                  </label>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '0.5rem',
+                    }}
+                  >
+                    {[
+                      'React',
+                      'TypeScript',
+                      'Node.js',
+                      'Python',
+                      'JavaScript',
+                      'CSS',
+                    ].map(tag => (
+                      <button
+                        key={tag}
+                        onClick={() => handleTagFilter(tag)}
+                        style={{
+                          padding: '0.5rem 1rem',
+                          borderRadius: '2rem',
+                          fontSize: '0.875rem',
+                          fontWeight: '500',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          backgroundColor:
+                            selectedTag === tag ? '#22d3ee' : '#334155',
+                          color: selectedTag === tag ? '#0f172a' : '#cbd5e1',
+                          border: 'none',
+                        }}
+                        onMouseEnter={e => {
+                          if (selectedTag !== tag) {
+                            e.currentTarget.style.backgroundColor = '#475569';
+                          }
+                        }}
+                        onMouseLeave={e => {
+                          if (selectedTag !== tag) {
+                            e.currentTarget.style.backgroundColor = '#334155';
+                          }
+                        }}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Languages */}
+                <div>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: '0.875rem',
+                      fontWeight: '500',
+                      color: '#cbd5e1',
+                      marginBottom: '1rem',
+                    }}
+                  >
+                    Linguagens
+                  </label>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '0.5rem',
+                    }}
+                  >
+                    {[
+                      'JavaScript',
+                      'TypeScript',
+                      'Python',
+                      'Java',
+                      'C++',
+                      'Go',
+                    ].map(language => (
+                      <button
+                        key={language}
+                        onClick={() => handleLanguageFilter(language)}
+                        style={{
+                          padding: '0.5rem 1rem',
+                          borderRadius: '2rem',
+                          fontSize: '0.875rem',
+                          fontWeight: '500',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          backgroundColor:
+                            selectedLanguage === language
+                              ? '#22d3ee'
+                              : '#334155',
+                          color:
+                            selectedLanguage === language
+                              ? '#0f172a'
+                              : '#cbd5e1',
+                          border: 'none',
+                        }}
+                        onMouseEnter={e => {
+                          if (selectedLanguage !== language) {
+                            e.currentTarget.style.backgroundColor = '#475569';
+                          }
+                        }}
+                        onMouseLeave={e => {
+                          if (selectedLanguage !== language) {
+                            e.currentTarget.style.backgroundColor = '#334155';
+                          }
+                        }}
+                      >
+                        {language}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Clear Filters */}
+              <div
+                style={{
+                  marginTop: '2rem',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <button
+                  onClick={clearFilters}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    fontSize: '0.875rem',
+                    color: '#94a3b8',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'color 0.2s ease',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.color = 'white';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.color = '#94a3b8';
+                  }}
+                >
+                  Limpar filtros
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Articles Grid */}
+        {loading ? (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+              gap: '2rem',
+            }}
+          >
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  backgroundColor: 'rgba(30, 41, 59, 0.5)',
+                  borderRadius: '1.5rem',
+                  padding: '2rem',
+                  border: '1px solid #334155',
+                  animation: 'pulse 2s infinite',
+                }}
+              >
+                <div
+                  style={{
+                    height: '1rem',
+                    backgroundColor: '#334155',
+                    borderRadius: '0.5rem',
+                    marginBottom: '1rem',
+                  }}
+                ></div>
+                <div
+                  style={{
+                    height: '0.75rem',
+                    backgroundColor: '#334155',
+                    borderRadius: '0.5rem',
+                    marginBottom: '0.5rem',
+                  }}
+                ></div>
+                <div
+                  style={{
+                    height: '0.75rem',
+                    backgroundColor: '#334155',
+                    borderRadius: '0.5rem',
+                    marginBottom: '1rem',
+                  }}
+                ></div>
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '0.5rem',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  <div
+                    style={{
+                      height: '1.5rem',
+                      width: '4rem',
+                      backgroundColor: '#334155',
+                      borderRadius: '1rem',
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      height: '1.5rem',
+                      width: '5rem',
+                      backgroundColor: '#334155',
+                      borderRadius: '1rem',
+                    }}
+                  ></div>
+                </div>
+                <div
+                  style={{
+                    height: '2rem',
+                    backgroundColor: '#334155',
+                    borderRadius: '0.5rem',
+                  }}
+                ></div>
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div
+            style={{
+              textAlign: 'center',
+              padding: '3rem',
+            }}
+          >
+            <p
+              style={{
+                color: '#f87171',
+                fontSize: '1.125rem',
+              }}
+            >
+              {error}
+            </p>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+              gap: '2rem',
+            }}
+          >
+            {articles.map(article => (
+              <article
+                key={article.id}
+                style={{
+                  backgroundColor: 'rgba(30, 41, 59, 0.5)',
+                  borderRadius: '1.5rem',
+                  padding: '2rem',
+                  border: '1px solid #334155',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = '#22d3ee';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow =
+                    '0 10px 25px rgba(34, 211, 238, 0.1)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = '#334155';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <h3
+                    style={{
+                      fontSize: '1.25rem',
+                      fontWeight: '600',
+                      color: 'white',
+                      marginBottom: '0.75rem',
+                      lineHeight: '1.4',
+                    }}
+                  >
+                    <Link
+                      to={`/artigos/${article.slug}`}
+                      style={{
+                        color: 'inherit',
+                        textDecoration: 'none',
+                      }}
+                    >
+                      {article.title}
+                    </Link>
+                  </h3>
+                  <p
+                    style={{
+                      color: '#cbd5e1',
+                      fontSize: '0.875rem',
+                      lineHeight: '1.6',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {article.excerpt}
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '0.5rem',
+                    marginBottom: '1.5rem',
+                  }}
+                >
+                  {article.tags.slice(0, 3).map(tag => (
+                    <span
+                      key={tag}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        padding: '0.25rem 0.75rem',
+                        backgroundColor: '#334155',
+                        color: '#22d3ee',
+                        fontSize: '0.75rem',
+                        fontWeight: '500',
+                        borderRadius: '1rem',
+                        gap: '0.25rem',
+                      }}
+                    >
+                      <TagIcon style={{ width: '12px', height: '12px' }} />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    fontSize: '0.875rem',
+                    color: '#94a3b8',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.25rem',
+                    }}
+                  >
+                    <UserIcon style={{ width: '16px', height: '16px' }} />
+                    {article.author.name}
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.25rem',
+                    }}
+                  >
+                    <ClockIcon style={{ width: '16px', height: '16px' }} />
+                    {article.readingTime} min
+                  </div>
+                </div>
+
+                <div>
+                  <Link
+                    to={`/artigos/${article.slug}`}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      color: '#22d3ee',
+                      fontSize: '0.875rem',
+                      fontWeight: '500',
+                      textDecoration: 'none',
+                      transition: 'color 0.2s ease',
+                      gap: '0.25rem',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.color = '#06b6d4';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.color = '#22d3ee';
+                    }}
+                  >
+                    Ler artigo
+                    <svg
+                      width='16'
+                      height='16'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M9 5l7 7-7 7'
+                      />
+                    </svg>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && !error && articles.length === 0 && (
+          <div
+            style={{
+              textAlign: 'center',
+              padding: '3rem',
+            }}
+          >
+            <p
+              style={{
+                color: '#94a3b8',
+                fontSize: '1.125rem',
+                marginBottom: '0.5rem',
+              }}
+            >
+              Nenhum artigo encontrado
+            </p>
+            <p
+              style={{
+                color: '#64748b',
+                fontSize: '0.875rem',
+              }}
+            >
+              Tente ajustar os filtros ou fazer uma nova busca
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
