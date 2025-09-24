@@ -1,0 +1,123 @@
+[
+  {
+    "id": "1",
+    "title": "Introdução ao React Hooks: useState e useEffect",
+    "slug": "introducao-react-hooks-usestate-useeffect",
+    "excerpt": "Aprenda os conceitos fundamentais dos React Hooks, começando com useState e useEffect, e como eles revolucionaram o desenvolvimento com React.",
+    "content": "<h2>O que são React Hooks?</h2><p>Os React Hooks são funções que permitem usar estado e outros recursos do React em componentes funcionais. Eles foram introduzidos no React 16.8 e revolucionaram a forma como escrevemos componentes.</p><h3>useState Hook</h3><p>O useState é o hook mais básico e permite adicionar estado a componentes funcionais:</p><pre><code>import React, { useState } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>Você clicou {count} vezes</p>\n      <button onClick={() => setCount(count + 1)}>\n        Clique aqui\n      </button>\n    </div>\n  );\n}</code></pre><h3>useEffect Hook</h3><p>O useEffect permite executar efeitos colaterais em componentes funcionais:</p><pre><code>import React, { useState, useEffect } from 'react';\n\nfunction Example() {\n  const [count, setCount] = useState(0);\n\n  useEffect(() => {\n    document.title = `Você clicou ${count} vezes`;\n  });\n\n  return (\n    <div>\n      <p>Você clicou {count} vezes</p>\n      <button onClick={() => setCount(count + 1)}>\n        Clique aqui\n      </button>\n    </div>\n  );\n}</code></pre>",
+    "author": {
+      "id": "1",
+      "name": "P. Sonats",
+      "avatar": null,
+      "bio": "Desenvolvedor full-stack apaixonado por React e TypeScript",
+      "social": {
+        "github": "fabiosonats",
+        "twitter": "fabiosonats"
+      }
+    },
+    "tags": ["React", "JavaScript", "Hooks", "Frontend"],
+    "language": "JavaScript",
+    "readingTime": 8,
+    "publishedAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-01-15T10:00:00Z",
+    "featured": true
+  },
+  {
+    "id": "2",
+    "title": "TypeScript: Tipos Avançados e Generics",
+    "slug": "typescript-tipos-avancados-generics",
+    "excerpt": "Explore os tipos mais avançados do TypeScript, incluindo generics, utility types e como criar tipos reutilizáveis e seguros.",
+    "content": "<h2>Generics em TypeScript</h2><p>Generics permitem criar componentes reutilizáveis que funcionam com múltiplos tipos. Eles são especialmente úteis para criar funções, interfaces e classes que podem trabalhar com diferentes tipos de dados.</p><h3>Funções Genéricas</h3><pre><code>function identity<T>(arg: T): T {\n  return arg;\n}\n\nlet output = identity<string>('hello');\nlet output2 = identity<number>(42);</code></pre><h3>Interfaces Genéricas</h3><pre><code>interface GenericInterface<T> {\n  value: T;\n  getValue(): T;\n}\n\nclass StringContainer implements GenericInterface<string> {\n  value: string;\n  \n  constructor(value: string) {\n    this.value = value;\n  }\n  \n  getValue(): string {\n    return this.value;\n  }\n}</code></pre>",
+    "author": {
+      "id": "1",
+      "name": "P. Sonats",
+      "avatar": null,
+      "bio": "Desenvolvedor full-stack apaixonado por React e TypeScript",
+      "social": {
+        "github": "fabiosonats",
+        "twitter": "fabiosonats"
+      }
+    },
+    "tags": ["TypeScript", "JavaScript", "Generics", "Tipos"],
+    "language": "TypeScript",
+    "readingTime": 12,
+    "publishedAt": "2024-01-20T14:30:00Z",
+    "updatedAt": "2024-01-20T14:30:00Z",
+    "featured": true
+  },
+  {
+    "id": "3",
+    "title": "Node.js: Construindo APIs REST com Express",
+    "slug": "nodejs-apis-rest-express",
+    "excerpt": "Aprenda a criar APIs REST robustas usando Node.js e Express, incluindo middleware, validação e boas práticas de segurança.",
+    "content": "<h2>Configurando o Express</h2><p>O Express é um framework web minimalista e flexível para Node.js que fornece um conjunto robusto de recursos para desenvolvimento web e mobile.</p><h3>Instalação e Configuração Básica</h3><pre><code>npm init -y\nnpm install express\n\n// app.js\nconst express = require('express');\nconst app = express();\nconst PORT = process.env.PORT || 3000;\n\napp.use(express.json());\n\napp.get('/', (req, res) => {\n  res.json({ message: 'API funcionando!' });\n});\n\napp.listen(PORT, () => {\n  console.log(`Servidor rodando na porta ${PORT}`);\n});</code></pre><h3>Rotas e Middleware</h3><pre><code>// Middleware de logging\napp.use((req, res, next) => {\n  console.log(`${req.method} ${req.path}`);\n  next();\n});\n\n// Rotas\napp.get('/api/users', (req, res) => {\n  res.json({ users: [] });\n});\n\napp.post('/api/users', (req, res) => {\n  const { name, email } = req.body;\n  // Lógica para criar usuário\n  res.status(201).json({ message: 'Usuário criado' });\n});</code></pre>",
+    "author": {
+      "id": "1",
+      "name": "P. Sonats",
+      "avatar": null,
+      "bio": "Desenvolvedor full-stack apaixonado por React e TypeScript",
+      "social": {
+        "github": "fabiosonats",
+        "twitter": "fabiosonats"
+      }
+    },
+    "tags": ["Node.js", "Express", "API", "Backend", "JavaScript"],
+    "language": "JavaScript",
+    "readingTime": 15,
+    "publishedAt": "2024-01-25T09:15:00Z",
+    "updatedAt": "2024-01-25T09:15:00Z",
+    "featured": false
+  },
+  {
+    "id": "4",
+    "title": "Python: Machine Learning com Scikit-learn",
+    "slug": "python-machine-learning-scikit-learn",
+    "excerpt": "Introdução prática ao machine learning usando Python e Scikit-learn, desde pré-processamento até avaliação de modelos.",
+    "content": "<h2>Introdução ao Scikit-learn</h2><p>O Scikit-learn é uma das bibliotecas mais populares para machine learning em Python. Ela fornece ferramentas simples e eficientes para análise de dados e modelagem preditiva.</p><h3>Instalação e Importação</h3><pre><code>pip install scikit-learn pandas numpy matplotlib\n\nimport pandas as pd\nimport numpy as np\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error</code></pre><h3>Exemplo Prático: Regressão Linear</h3><pre><code># Carregar dados\nfrom sklearn.datasets import load_boston\nboston = load_boston()\nX, y = boston.data, boston.target\n\n# Dividir em treino e teste\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42\n)\n\n# Treinar modelo\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\n# Fazer previsões\ny_pred = model.predict(X_test)\n\n# Avaliar modelo\nmse = mean_squared_error(y_test, y_pred)\nprint(f'Erro quadrático médio: {mse}')</code></pre>",
+    "author": {
+      "id": "1",
+      "name": "P. Sonats",
+      "avatar": null,
+      "bio": "Desenvolvedor full-stack apaixonado por React e TypeScript",
+      "social": {
+        "github": "fabiosonats",
+        "twitter": "fabiosonats"
+      }
+    },
+    "tags": [
+      "Python",
+      "Machine Learning",
+      "Scikit-learn",
+      "Data Science",
+      "AI"
+    ],
+    "language": "Python",
+    "readingTime": 18,
+    "publishedAt": "2024-02-01T16:45:00Z",
+    "updatedAt": "2024-02-01T16:45:00Z",
+    "featured": true
+  },
+  {
+    "id": "5",
+    "title": "CSS Grid: Layout Moderno e Responsivo",
+    "slug": "css-grid-layout-moderno-responsivo",
+    "excerpt": "Domine o CSS Grid para criar layouts complexos e responsivos de forma eficiente, com exemplos práticos e melhores práticas.",
+    "content": "<h2>O que é CSS Grid?</h2><p>CSS Grid é um sistema de layout bidimensional que permite criar layouts complexos com linhas e colunas. É especialmente poderoso para criar designs responsivos e alinhamentos precisos.</p><h3>Configuração Básica</h3><pre><code>.container {\n  display: grid;\n  grid-template-columns: 1fr 2fr 1fr;\n  grid-template-rows: auto 1fr auto;\n  gap: 20px;\n  height: 100vh;\n}</code></pre><h3>Layout Responsivo</h3><pre><code>.grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: 1rem;\n}\n\n@media (max-width: 768px) {\n  .grid {\n    grid-template-columns: 1fr;\n  }\n}</code></pre><h3>Posicionamento de Itens</h3><pre><code>.item {\n  grid-column: 1 / 3;\n  grid-row: 2 / 4;\n}\n\n.item-2 {\n  grid-area: 1 / 2 / 3 / 4;\n}</code></pre>",
+    "author": {
+      "id": "1",
+      "name": "P. Sonats",
+      "avatar": null,
+      "bio": "Desenvolvedor full-stack apaixonado por React e TypeScript",
+      "social": {
+        "github": "fabiosonats",
+        "twitter": "fabiosonats"
+      }
+    },
+    "tags": ["CSS", "Grid", "Layout", "Responsivo", "Frontend"],
+    "language": "CSS",
+    "readingTime": 10,
+    "publishedAt": "2024-02-05T11:20:00Z",
+    "updatedAt": "2024-02-05T11:20:00Z",
+    "featured": false
+  }
+]
