@@ -117,14 +117,11 @@ export default function Footer() {
             <Link to='/artigos?tag=typescript' style={linkStyle}>
               TypeScript
             </Link>
-            <Link to='/artigos?tag=nodejs' style={linkStyle}>
-              Node.js
+            <Link to='/artigos?tag=css' style={linkStyle}>
+              CSS
             </Link>
             <Link to='/artigos?tag=python' style={linkStyle}>
               Python
-            </Link>
-            <Link to='/artigos?tag=css' style={linkStyle}>
-              CSS
             </Link>
           </div>
 

@@ -47,26 +47,27 @@
   },
   {
     "id": "3",
-    "title": "Node.js: Construindo APIs REST com Express",
-    "slug": "nodejs-apis-rest-express",
-    "excerpt": "Aprenda a criar APIs REST robustas usando Node.js e Express, incluindo middleware, validação e boas práticas de segurança.",
-    "content": "<h2>Configurando o Express</h2><p>O Express é um framework web minimalista e flexível para Node.js que fornece um conjunto robusto de recursos para desenvolvimento web e mobile.</p><h3>Instalação e Configuração Básica</h3><pre><code>npm init -y\nnpm install express\n\n// app.js\nconst express = require('express');\nconst app = express();\nconst PORT = process.env.PORT || 3000;\n\napp.use(express.json());\n\napp.get('/', (req, res) => {\n  res.json({ message: 'API funcionando!' });\n});\n\napp.listen(PORT, () => {\n  console.log(`Servidor rodando na porta ${PORT}`);\n});</code></pre><h3>Rotas e Middleware</h3><pre><code>// Middleware de logging\napp.use((req, res, next) => {\n  console.log(`${req.method} ${req.path}`);\n  next();\n});\n\n// Rotas\napp.get('/api/users', (req, res) => {\n  res.json({ users: [] });\n});\n\napp.post('/api/users', (req, res) => {\n  const { name, email } = req.body;\n  // Lógica para criar usuário\n  res.status(201).json({ message: 'Usuário criado' });\n});</code></pre>",
+    "title": "CSS Grid Layout Mastery",
+    "slug": "css-grid-layout-mastery",
+    "excerpt": "Domine o CSS Grid Layout para criar layouts modernos e responsivos.",
+    "content": "<h2>Introdução ao CSS Grid</h2><p>O CSS Grid é uma das ferramentas mais poderosas para criar layouts modernos e responsivos. Ele permite criar layouts bidimensionais com facilidade.</p><h3>Configuração Básica</h3><pre><code>.container {\n  display: grid;\n  grid-template-columns: 1fr 2fr 1fr;\n  grid-template-rows: auto 1fr auto;\n  gap: 20px;\n  height: 100vh;\n}</code></pre><h3>Posicionamento de Itens</h3><pre><code>.item {\n  grid-column: 1 / 3;\n  grid-row: 2 / 4;\n  background: #22d3ee;\n  padding: 20px;\n}</code></pre>",
     "author": {
       "id": "1",
-      "name": "P. Sonats",
+      "name": "Fábio Ferreira",
       "avatar": null,
       "bio": "Desenvolvedor full-stack apaixonado por React e TypeScript",
       "social": {
-        "github": "fabiosonats",
-        "twitter": "fabiosonats"
+        "github": "FabioSonats",
+        "linkedin": "https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/",
+        "portfolio": "https://fabiosonats.github.io/my-portifolio/"
       }
     },
-    "tags": ["Node.js", "Express", "API", "Backend", "JavaScript"],
-    "language": "JavaScript",
-    "readingTime": 15,
+    "tags": ["CSS", "Layout", "Grid"],
+    "language": "CSS",
+    "readingTime": 10,
     "publishedAt": "2024-01-25T09:15:00Z",
     "updatedAt": "2024-01-25T09:15:00Z",
-    "featured": false
+    "featured": true
   },
   {
     "id": "4",
