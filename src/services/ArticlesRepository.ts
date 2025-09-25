@@ -61,9 +61,9 @@ export class ArticlesRepository {
           avatar: '/avatars/psonats.jpg',
           bio: 'Desenvolvedor Full-Stack e criador de conteúdo técnico',
           social: {
-            github: 'https://github.com/psonats',
-            linkedin: 'https://linkedin.com/in/psonats',
-            twitter: 'https://twitter.com/psonats',
+            github: 'https://github.com/FabioSonats',
+            linkedin:
+              'https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/',
           },
         },
         publishedAt: '2024-01-10T14:30:00Z',
