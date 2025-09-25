@@ -17,7 +17,12 @@
   },
   "publishedAt": "2024-01-10T14:20:00Z",
   "updatedAt": "2024-01-10T14:20:00Z",
-  "tags": ["TypeScript", "JavaScript", "Programming"],
+  "tags": [
+    "TypeScript",
+    "JavaScript",
+    "Programming"
+  ],
+  "category": "typescript",
   "language": "pt",
   "readingTime": 12,
   "featured": true

@@ -81,6 +81,7 @@ export class ArticlesRepository {
         publishedAt: '2024-01-15T10:30:00Z',
         updatedAt: '2024-01-15T10:30:00Z',
         tags: ['React', 'JavaScript', 'Hooks'],
+        category: 'react',
         language: 'pt',
         readingTime: 8,
         featured: true,
@@ -107,6 +108,7 @@ export class ArticlesRepository {
         publishedAt: '2024-01-10T14:20:00Z',
         updatedAt: '2024-01-10T14:20:00Z',
         tags: ['TypeScript', 'JavaScript', 'Programming'],
+        category: 'typescript',
         language: 'pt',
         readingTime: 12,
         featured: true,
@@ -133,6 +135,7 @@ export class ArticlesRepository {
         publishedAt: '2024-01-05T09:15:00Z',
         updatedAt: '2024-01-05T09:15:00Z',
         tags: ['CSS', 'Layout', 'Grid'],
+        category: 'css',
         language: 'pt',
         readingTime: 10,
         featured: true,
@@ -160,6 +163,7 @@ export class ArticlesRepository {
         publishedAt: '2024-01-20T14:30:00Z',
         updatedAt: '2024-01-20T14:30:00Z',
         tags: ['Python', 'Lógica de Programação', 'Algoritmos'],
+        category: 'python',
         language: 'pt',
         readingTime: 15,
         featured: true,
@@ -192,6 +196,7 @@ export class ArticlesRepository {
           'Programação Orientada a Objetos',
           'Classes',
         ],
+        category: 'javascript',
         language: 'pt',
         readingTime: 20,
         featured: true,
@@ -216,8 +221,8 @@ export class ArticlesRepository {
     // Apply filters
     let filteredArticles = mockArticles;
 
-    if (filters.search) {
-      const searchTerm = filters.search.toLowerCase();
+    if (filters.query || filters.search) {
+      const searchTerm = (filters.query || filters.search || '').toLowerCase();
       filteredArticles = filteredArticles.filter(
         article =>
           article.title.toLowerCase().includes(searchTerm) ||
@@ -235,6 +240,12 @@ export class ArticlesRepository {
     if (filters.featured !== undefined) {
       filteredArticles = filteredArticles.filter(
         article => article.featured === filters.featured
+      );
+    }
+
+    if (filters.category) {
+      filteredArticles = filteredArticles.filter(
+        article => article.category === filters.category
       );
     }
 

@@ -7,6 +7,7 @@ export interface Article {
     content: string;
     author: Author;
     tags: string[];
+    category: string;
     language: string;
     readingTime: number;
     publishedAt: string;
@@ -25,6 +26,16 @@ export interface Author {
         github?: string;
         linkedin?: string;
     };
+}
+
+export interface Category {
+    id: string;
+    name: string;
+    slug: string;
+    description: string;
+    icon: string;
+    color: string;
+    articleCount: number;
 }
 
 export interface LibraryItem {
@@ -55,10 +66,13 @@ export interface SearchResult {
 
 export interface SearchFilters {
     query?: string;
+    search?: string;
     tags?: string[];
+    category?: string;
     language?: string;
     type?: 'article' | 'library' | 'all';
     level?: 'beginner' | 'intermediate' | 'advanced' | 'all';
+    featured?: boolean;
 }
 
 export interface PaginationInfo {
