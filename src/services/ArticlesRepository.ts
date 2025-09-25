@@ -79,8 +79,220 @@ export class ArticlesRepository {
         slug: 'css-grid-layout-mastery',
         excerpt:
           'Domine o CSS Grid Layout para criar layouts modernos e responsivos.',
-        content:
-          '# CSS Grid Layout Mastery\n\nO CSS Grid é uma das ferramentas mais poderosas para criar layouts modernos...',
+        content: `# CSS Grid Layout Mastery
+
+O CSS Grid é uma das ferramentas mais poderosas para criar layouts modernos e responsivos. Ele permite criar layouts bidimensionais complexos com facilidade, oferecendo controle total sobre a posição e o tamanho dos elementos.
+
+## O que é CSS Grid?
+
+CSS Grid é um sistema de layout bidimensional que permite criar layouts complexos usando linhas e colunas. Diferente do Flexbox, que é unidimensional, o Grid permite controlar tanto a direção horizontal quanto vertical dos elementos.
+
+## Configuração Básica
+
+Para começar a usar CSS Grid, você precisa definir um container como grid:
+
+\`\`\`css
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+  height: 100vh;
+}
+\`\`\`
+
+### Propriedades Principais
+
+- **grid-template-columns**: Define o número e tamanho das colunas
+- **grid-template-rows**: Define o número e tamanho das linhas
+- **gap**: Define o espaçamento entre os itens
+- **grid-template-areas**: Permite nomear áreas do grid
+
+## Unidades de Medida
+
+### fr (Fractional Unit)
+A unidade \`fr\` representa uma fração do espaço disponível:
+
+\`\`\`css
+.grid {
+  grid-template-columns: 1fr 2fr 1fr; /* 25% 50% 25% */
+}
+\`\`\`
+
+### repeat()
+A função \`repeat()\` simplifica a criação de grids repetitivos:
+
+\`\`\`css
+.grid {
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsivo */
+}
+\`\`\`
+
+## Posicionamento de Itens
+
+### Grid Lines
+Você pode posicionar itens usando as linhas do grid:
+
+\`\`\`css
+.item {
+  grid-column: 1 / 3; /* Da linha 1 à linha 3 */
+  grid-row: 2 / 4;    /* Da linha 2 à linha 4 */
+}
+\`\`\`
+
+### Grid Areas
+Uma forma mais semântica de posicionar elementos:
+
+\`\`\`css
+.container {
+  grid-template-areas:
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+\`\`\`
+
+## Layouts Responsivos
+
+### Auto-fit e Auto-fill
+Crie layouts que se adaptam automaticamente:
+
+\`\`\`css
+.responsive-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+\`\`\`
+
+### Media Queries
+Combine Grid com media queries para diferentes breakpoints:
+
+\`\`\`css
+.grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+\`\`\`
+
+## Exemplos Práticos
+
+### Layout de Blog
+\`\`\`css
+.blog-layout {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "nav"
+    "main"
+    "sidebar"
+    "footer";
+  grid-template-rows: auto auto 1fr auto auto;
+  min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  .blog-layout {
+    grid-template-areas:
+      "header header"
+      "nav nav"
+      "main sidebar"
+      "footer footer";
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: auto auto 1fr auto;
+  }
+}
+\`\`\`
+
+### Galeria de Imagens
+\`\`\`css
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.gallery img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+\`\`\`
+
+### Dashboard
+\`\`\`css
+.dashboard {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 60px 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  height: 100vh;
+}
+
+.sidebar { grid-area: sidebar; }
+.header { grid-area: header; }
+.main { 
+  grid-area: main;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+\`\`\`
+
+## Alinhamento
+
+### justify-items e align-items
+Controle o alinhamento dos itens dentro de suas células:
+
+\`\`\`css
+.grid {
+  justify-items: center; /* Alinhamento horizontal */
+  align-items: center;   /* Alinhamento vertical */
+}
+\`\`\`
+
+### justify-content e align-content
+Controle o alinhamento do grid como um todo:
+
+\`\`\`css
+.grid {
+  justify-content: space-between;
+  align-content: center;
+}
+\`\`\`
+
+## Dicas e Boas Práticas
+
+1. **Use Grid para layouts principais**: Grid é ideal para estruturas de página
+2. **Combine com Flexbox**: Use Flexbox para componentes internos
+3. **Nomes semânticos**: Use \`grid-template-areas\` para layouts mais legíveis
+4. **Teste responsividade**: Sempre teste em diferentes tamanhos de tela
+5. **Fallbacks**: Forneça fallbacks para navegadores mais antigos
+
+## Conclusão
+
+CSS Grid revolucionou a forma como criamos layouts web. Com sua flexibilidade e poder, você pode criar designs complexos e responsivos de forma mais eficiente. Pratique com os exemplos fornecidos e experimente diferentes combinações para dominar essa ferramenta essencial do desenvolvimento web moderno.`,
         author: {
           id: '1',
           name: 'Fábio Ferreira',
@@ -102,32 +314,6 @@ export class ArticlesRepository {
       },
       {
         id: '4',
-        title: 'CSS Grid Layout Mastery',
-        slug: 'css-grid-layout-mastery',
-        excerpt:
-          'Domine o CSS Grid Layout para criar layouts modernos e responsivos.',
-        content:
-          '# CSS Grid Layout Mastery\n\nCSS Grid é uma ferramenta poderosa...',
-        author: {
-          id: '1',
-          name: 'P. Sonats',
-          avatar: '/avatars/psonats.jpg',
-          bio: 'Desenvolvedor Full-Stack e criador de conteúdo técnico',
-          social: {
-            github: 'https://github.com/psonats',
-            linkedin: 'https://linkedin.com/in/psonats',
-            twitter: 'https://twitter.com/psonats',
-          },
-        },
-        publishedAt: '2024-01-01T16:45:00Z',
-        updatedAt: '2024-01-01T16:45:00Z',
-        tags: ['CSS', 'Layout', 'Grid'],
-        language: 'pt',
-        readingTime: 10,
-        featured: false,
-      },
-      {
-        id: '5',
         title: 'Python para Data Science',
         slug: 'python-para-data-science',
         excerpt:
@@ -145,12 +331,12 @@ export class ArticlesRepository {
             twitter: 'https://twitter.com/psonats',
           },
         },
-        publishedAt: '2023-12-28T11:20:00Z',
-        updatedAt: '2023-12-28T11:20:00Z',
+        publishedAt: '2024-01-01T16:45:00Z',
+        updatedAt: '2024-01-01T16:45:00Z',
         tags: ['Python', 'Data Science', 'Analytics'],
         language: 'pt',
-        readingTime: 18,
-        featured: true,
+        readingTime: 15,
+        featured: false,
       },
     ];
 
@@ -260,54 +446,242 @@ export class ArticlesRepository {
       },
       {
         id: '3',
-        title: 'Node.js Best Practices',
-        slug: 'nodejs-best-practices',
-        excerpt: 'Melhores práticas para desenvolvimento Node.js em produção.',
-        content:
-          '# Node.js Best Practices\n\nDesenvolver aplicações Node.js robustas e escaláveis...\n\n## Estrutura de Projeto\n\nOrganizando seu código...\n\n## Error Handling\n\nTratamento de erros...\n\n## Performance\n\nOtimizações importantes...',
-        author: {
-          id: '1',
-          name: 'P. Sonats',
-          avatar: '/avatars/psonats.jpg',
-          bio: 'Desenvolvedor Full-Stack e criador de conteúdo técnico',
-          social: {
-            github: 'https://github.com/psonats',
-            linkedin: 'https://linkedin.com/in/psonats',
-            twitter: 'https://twitter.com/psonats',
-          },
-        },
-        publishedAt: '2024-01-05T09:15:00Z',
-        updatedAt: '2024-01-05T09:15:00Z',
-        tags: ['Node.js', 'Backend', 'JavaScript'],
-        language: 'pt',
-        readingTime: 15,
-        featured: true,
-      },
-      {
-        id: '4',
         title: 'CSS Grid Layout Mastery',
         slug: 'css-grid-layout-mastery',
         excerpt:
           'Domine o CSS Grid Layout para criar layouts modernos e responsivos.',
-        content:
-          '# CSS Grid Layout Mastery\n\nCSS Grid é uma ferramenta poderosa para criar layouts...\n\n## Grid Container\n\nDefinindo o container...\n\n## Grid Items\n\nPosicionando elementos...\n\n## Responsive Grid\n\nGrids responsivos...',
+        content: `# CSS Grid Layout Mastery
+
+O CSS Grid é uma das ferramentas mais poderosas para criar layouts modernos e responsivos. Ele permite criar layouts bidimensionais complexos com facilidade, oferecendo controle total sobre a posição e o tamanho dos elementos.
+
+## O que é CSS Grid?
+
+CSS Grid é um sistema de layout bidimensional que permite criar layouts complexos usando linhas e colunas. Diferente do Flexbox, que é unidimensional, o Grid permite controlar tanto a direção horizontal quanto vertical dos elementos.
+
+## Configuração Básica
+
+Para começar a usar CSS Grid, você precisa definir um container como grid:
+
+\`\`\`css
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+  height: 100vh;
+}
+\`\`\`
+
+### Propriedades Principais
+
+- **grid-template-columns**: Define o número e tamanho das colunas
+- **grid-template-rows**: Define o número e tamanho das linhas
+- **gap**: Define o espaçamento entre os itens
+- **grid-template-areas**: Permite nomear áreas do grid
+
+## Unidades de Medida
+
+### fr (Fractional Unit)
+A unidade \`fr\` representa uma fração do espaço disponível:
+
+\`\`\`css
+.grid {
+  grid-template-columns: 1fr 2fr 1fr; /* 25% 50% 25% */
+}
+\`\`\`
+
+### repeat()
+A função \`repeat()\` simplifica a criação de grids repetitivos:
+
+\`\`\`css
+.grid {
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsivo */
+}
+\`\`\`
+
+## Posicionamento de Itens
+
+### Grid Lines
+Você pode posicionar itens usando as linhas do grid:
+
+\`\`\`css
+.item {
+  grid-column: 1 / 3; /* Da linha 1 à linha 3 */
+  grid-row: 2 / 4;    /* Da linha 2 à linha 4 */
+}
+\`\`\`
+
+### Grid Areas
+Uma forma mais semântica de posicionar elementos:
+
+\`\`\`css
+.container {
+  grid-template-areas:
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+\`\`\`
+
+## Layouts Responsivos
+
+### Auto-fit e Auto-fill
+Crie layouts que se adaptam automaticamente:
+
+\`\`\`css
+.responsive-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+\`\`\`
+
+### Media Queries
+Combine Grid com media queries para diferentes breakpoints:
+
+\`\`\`css
+.grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+\`\`\`
+
+## Exemplos Práticos
+
+### Layout de Blog
+\`\`\`css
+.blog-layout {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "nav"
+    "main"
+    "sidebar"
+    "footer";
+  grid-template-rows: auto auto 1fr auto auto;
+  min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  .blog-layout {
+    grid-template-areas:
+      "header header"
+      "nav nav"
+      "main sidebar"
+      "footer footer";
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: auto auto 1fr auto;
+  }
+}
+\`\`\`
+
+### Galeria de Imagens
+\`\`\`css
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.gallery img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+\`\`\`
+
+### Dashboard
+\`\`\`css
+.dashboard {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 60px 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  height: 100vh;
+}
+
+.sidebar { grid-area: sidebar; }
+.header { grid-area: header; }
+.main { 
+  grid-area: main;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+\`\`\`
+
+## Alinhamento
+
+### justify-items e align-items
+Controle o alinhamento dos itens dentro de suas células:
+
+\`\`\`css
+.grid {
+  justify-items: center; /* Alinhamento horizontal */
+  align-items: center;   /* Alinhamento vertical */
+}
+\`\`\`
+
+### justify-content e align-content
+Controle o alinhamento do grid como um todo:
+
+\`\`\`css
+.grid {
+  justify-content: space-between;
+  align-content: center;
+}
+\`\`\`
+
+## Dicas e Boas Práticas
+
+1. **Use Grid para layouts principais**: Grid é ideal para estruturas de página
+2. **Combine com Flexbox**: Use Flexbox para componentes internos
+3. **Nomes semânticos**: Use \`grid-template-areas\` para layouts mais legíveis
+4. **Teste responsividade**: Sempre teste em diferentes tamanhos de tela
+5. **Fallbacks**: Forneça fallbacks para navegadores mais antigos
+
+## Conclusão
+
+CSS Grid revolucionou a forma como criamos layouts web. Com sua flexibilidade e poder, você pode criar designs complexos e responsivos de forma mais eficiente. Pratique com os exemplos fornecidos e experimente diferentes combinações para dominar essa ferramenta essencial do desenvolvimento web moderno.`,
         author: {
           id: '1',
-          name: 'P. Sonats',
-          avatar: '/avatars/psonats.jpg',
+          name: 'Fábio Ferreira',
+          avatar: '/avatars/fabio.jpg',
           bio: 'Desenvolvedor Full-Stack e criador de conteúdo técnico',
           social: {
-            github: 'https://github.com/psonats',
-            linkedin: 'https://linkedin.com/in/psonats',
-            twitter: 'https://twitter.com/psonats',
+            github: 'https://github.com/FabioSonats',
+            linkedin:
+              'https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/',
+            portfolio: 'https://fabiosonats.github.io/my-portifolio/',
           },
         },
-        publishedAt: '2024-01-01T16:45:00Z',
-        updatedAt: '2024-01-01T16:45:00Z',
+        publishedAt: '2024-01-05T09:15:00Z',
+        updatedAt: '2024-01-05T09:15:00Z',
         tags: ['CSS', 'Layout', 'Grid'],
         language: 'pt',
         readingTime: 10,
-        featured: false,
+        featured: true,
       },
       {
         id: '5',
