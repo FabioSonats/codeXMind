@@ -53,6 +53,20 @@ export class SearchRepository {
         tags: ['Python', 'Lógica de Programação', 'Algoritmos'],
       },
       {
+        id: '5',
+        title: 'Programação Orientada a Objetos com JavaScript',
+        type: 'article',
+        excerpt:
+          'Aprenda os conceitos fundamentais de Programação Orientada a Objetos usando JavaScript moderno',
+        slug: 'programacao-orientada-objetos-javascript',
+        tags: [
+          'JavaScript',
+          'OOP',
+          'Programação Orientada a Objetos',
+          'Classes',
+        ],
+      },
+      {
         id: '4',
         title: 'CSS Grid Layout',
         type: 'library',
@@ -105,6 +119,8 @@ export class SearchRepository {
       'Python',
       'Lógica de Programação',
       'JavaScript',
+      'OOP',
+      'Programação Orientada a Objetos',
       'Vue.js',
       'Angular',
       'Express.js',
@@ -165,6 +181,8 @@ export class SearchRepository {
       'Python',
       'Lógica de Programação',
       'Algoritmos',
+      'OOP',
+      'Programação Orientada a Objetos',
       'Vue.js',
       'Angular',
       'Express.js',

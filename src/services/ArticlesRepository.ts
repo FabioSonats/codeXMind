@@ -33,12 +33,16 @@ export class ArticlesRepository {
       const pythonLogic = await import(
         '../../mock-data/articles/logica-programacao-python.json'
       );
+      const oopJavaScript = await import(
+        '../../mock-data/articles/programacao-orientada-objetos-javascript.json'
+      );
 
       articles.push(
         reactHooks.default,
         typescript.default,
         cssGrid.default,
-        pythonLogic.default
+        pythonLogic.default,
+        oopJavaScript.default
       );
 
       return articles;
@@ -158,6 +162,38 @@ export class ArticlesRepository {
         tags: ['Python', 'Lógica de Programação', 'Algoritmos'],
         language: 'pt',
         readingTime: 15,
+        featured: true,
+      },
+      {
+        id: '5',
+        title: 'Programação Orientada a Objetos com JavaScript',
+        slug: 'programacao-orientada-objetos-javascript',
+        excerpt:
+          'Aprenda os conceitos fundamentais de Programação Orientada a Objetos usando JavaScript moderno',
+        content:
+          '# Programação Orientada a Objetos com JavaScript\n\nA Programação Orientada a Objetos (OOP) é um paradigma de programação que organiza o código em objetos...',
+        author: {
+          id: '1',
+          name: 'Fábio Ferreira',
+          avatar: '/avatars/fabio.jpg',
+          bio: 'Desenvolvedor Full-Stack e criador de conteúdo técnico',
+          social: {
+            github: 'https://github.com/FabioSonats',
+            linkedin:
+              'https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/',
+            portfolio: 'https://fabiosonats.github.io/my-portifolio/',
+          },
+        },
+        publishedAt: '2024-01-25T16:45:00Z',
+        updatedAt: '2024-01-25T16:45:00Z',
+        tags: [
+          'JavaScript',
+          'OOP',
+          'Programação Orientada a Objetos',
+          'Classes',
+        ],
+        language: 'pt',
+        readingTime: 20,
         featured: true,
       },
     ];

@@ -824,6 +824,499 @@ Lembre-se: a programação é uma habilidade que se desenvolve com prática cons
       readingTime: 15,
       featured: true,
     },
+    'programacao-orientada-objetos-javascript': {
+      id: '5',
+      title: 'Programação Orientada a Objetos com JavaScript',
+      slug: 'programacao-orientada-objetos-javascript',
+      content: `# Programação Orientada a Objetos com JavaScript
+
+A Programação Orientada a Objetos (OOP) é um paradigma de programação que organiza o código em objetos que contêm dados (propriedades) e comportamentos (métodos). JavaScript, apesar de ser uma linguagem multi-paradigma, oferece excelente suporte para OOP.
+
+## O que é Programação Orientada a Objetos?
+
+OOP é um paradigma baseado no conceito de "objetos", que podem conter dados na forma de campos (atributos) e código na forma de procedimentos (métodos). Os quatro pilares fundamentais da OOP são:
+
+- **Encapsulamento**: Ocultar detalhes internos e expor apenas o necessário
+- **Herança**: Criar novas classes baseadas em classes existentes
+- **Polimorfismo**: Usar uma interface única para diferentes tipos
+- **Abstração**: Simplificar a complexidade através de modelos
+
+## Classes em JavaScript
+
+### Sintaxe Básica de Classes
+
+\`\`\`javascript
+// Definição de uma classe
+class Pessoa {
+  constructor(nome, idade) {
+    this.nome = nome;
+    this.idade = idade;
+  }
+
+  // Método de instância
+  apresentar() {
+    return \`Olá, eu sou \${this.nome} e tenho \${this.idade} anos\`;
+  }
+
+  // Método estático
+  static compararIdades(pessoa1, pessoa2) {
+    return pessoa1.idade - pessoa2.idade;
+  }
+}
+
+// Criando uma instância
+const joao = new Pessoa('João', 25);
+console.log(joao.apresentar()); // "Olá, eu sou João e tenho 25 anos"
+
+// Usando método estático
+const maria = new Pessoa('Maria', 30);
+console.log(Pessoa.compararIdades(joao, maria)); // -5
+\`\`\`
+
+### Propriedades e Métodos
+
+\`\`\`javascript
+class ContaBancaria {
+  constructor(titular, saldoInicial = 0) {
+    this.titular = titular;
+    this._saldo = saldoInicial; // Propriedade privada (convenção)
+    this.transacoes = [];
+  }
+
+  // Getter
+  get saldo() {
+    return this._saldo;
+  }
+
+  // Setter
+  set saldo(novoSaldo) {
+    if (novoSaldo < 0) {
+      throw new Error('Saldo não pode ser negativo');
+    }
+    this._saldo = novoSaldo;
+  }
+
+  // Método público
+  depositar(valor) {
+    if (valor <= 0) {
+      throw new Error('Valor deve ser positivo');
+    }
+    this._saldo += valor;
+    this.transacoes.push({
+      tipo: 'depósito',
+      valor: valor,
+      data: new Date()
+    });
+    return this._saldo;
+  }
+
+  // Método privado (convenção)
+  _validarSaque(valor) {
+    return valor > 0 && valor <= this._saldo;
+  }
+
+  sacar(valor) {
+    if (!this._validarSaque(valor)) {
+      throw new Error('Valor inválido ou saldo insuficiente');
+    }
+    this._saldo -= valor;
+    this.transacoes.push({
+      tipo: 'saque',
+      valor: valor,
+      data: new Date()
+    });
+    return this._saldo;
+  }
+
+  // Método para obter extrato
+  obterExtrato() {
+    return {
+      titular: this.titular,
+      saldo: this._saldo,
+      transacoes: this.transacoes
+    };
+  }
+}
+
+// Uso da classe
+const conta = new ContaBancaria('Ana Silva', 1000);
+conta.depositar(500);
+conta.sacar(200);
+console.log(conta.saldo); // 1300
+console.log(conta.obterExtrato());
+\`\`\`
+
+## Herança
+
+### Herança Simples
+
+\`\`\`javascript
+// Classe pai
+class Animal {
+  constructor(nome, especie) {
+    this.nome = nome;
+    this.especie = especie;
+  }
+
+  fazerSom() {
+    return 'O animal faz um som';
+  }
+
+  apresentar() {
+    return \`Sou um \${this.especie} chamado \${this.nome}\`;
+  }
+}
+
+// Classe filha
+class Cachorro extends Animal {
+  constructor(nome, raca) {
+    super(nome, 'Canino'); // Chama o construtor da classe pai
+    this.raca = raca;
+  }
+
+  // Sobrescreve o método da classe pai
+  fazerSom() {
+    return 'Au au!';
+  }
+
+  // Método específico da classe filha
+  latir() {
+    return \`\${this.nome} está latindo: \${this.fazerSom()}\`;
+  }
+
+  // Método que chama o método da classe pai
+  apresentarCompleto() {
+    return \`\${super.apresentar()} da raça \${this.raca}\`;
+  }
+}
+
+// Uso da herança
+const rex = new Cachorro('Rex', 'Pastor Alemão');
+console.log(rex.apresentar()); // "Sou um Canino chamado Rex"
+console.log(rex.fazerSom()); // "Au au!"
+console.log(rex.latir()); // "Rex está latindo: Au au!"
+console.log(rex.apresentarCompleto()); // "Sou um Canino chamado Rex da raça Pastor Alemão"
+\`\`\`
+
+## Encapsulamento
+
+### Campos Privados (ES2022)
+
+\`\`\`javascript
+class ContaCorrente {
+  // Campos privados (usando #)
+  #saldo = 0;
+  #senha;
+
+  constructor(titular, senha) {
+    this.titular = titular;
+    this.#senha = senha;
+  }
+
+  // Método privado
+  #validarSenha(senha) {
+    return senha === this.#senha;
+  }
+
+  // Método público que usa método privado
+  verificarSaldo(senha) {
+    if (!this.#validarSenha(senha)) {
+      throw new Error('Senha incorreta');
+    }
+    return this.#saldo;
+  }
+
+  depositar(valor, senha) {
+    if (!this.#validarSenha(senha)) {
+      throw new Error('Senha incorreta');
+    }
+    this.#saldo += valor;
+    return this.#saldo;
+  }
+
+  sacar(valor, senha) {
+    if (!this.#validarSenha(senha)) {
+      throw new Error('Senha incorreta');
+    }
+    if (valor > this.#saldo) {
+      throw new Error('Saldo insuficiente');
+    }
+    this.#saldo -= valor;
+    return this.#saldo;
+  }
+}
+
+// Uso da classe com encapsulamento
+const conta = new ContaCorrente('João', '1234');
+conta.depositar(1000, '1234');
+console.log(conta.verificarSaldo('1234')); // 1000
+// console.log(conta.#saldo); // Erro! Campo privado não acessível
+\`\`\`
+
+## Polimorfismo
+
+### Polimorfismo por Herança
+
+\`\`\`javascript
+// Classe base abstrata
+class Forma {
+  constructor(nome) {
+    this.nome = nome;
+  }
+
+  // Método que será sobrescrito pelas classes filhas
+  calcularArea() {
+    throw new Error('Método calcularArea deve ser implementado');
+  }
+
+  // Método que usa polimorfismo
+  obterInformacoes() {
+    return \`\${this.nome}: Área = \${this.calcularArea()}\`;
+  }
+}
+
+// Classes filhas que implementam o mesmo método de forma diferente
+class Retangulo extends Forma {
+  constructor(largura, altura) {
+    super('Retângulo');
+    this.largura = largura;
+    this.altura = altura;
+  }
+
+  calcularArea() {
+    return this.largura * this.altura;
+  }
+}
+
+class Circulo extends Forma {
+  constructor(raio) {
+    super('Círculo');
+    this.raio = raio;
+  }
+
+  calcularArea() {
+    return Math.PI * this.raio * this.raio;
+  }
+}
+
+class Triangulo extends Forma {
+  constructor(base, altura) {
+    super('Triângulo');
+    this.base = base;
+    this.altura = altura;
+  }
+
+  calcularArea() {
+    return (this.base * this.altura) / 2;
+  }
+}
+
+// Uso do polimorfismo
+const formas = [
+  new Retangulo(5, 3),
+  new Circulo(4),
+  new Triangulo(6, 8)
+];
+
+// O mesmo método é chamado, mas cada classe executa sua própria implementação
+formas.forEach(forma => {
+  console.log(forma.obterInformacoes());
+});
+// Retângulo: Área = 15
+// Círculo: Área = 50.26548245743669
+// Triângulo: Área = 24
+\`\`\`
+
+## Padrões de Design com OOP
+
+### Singleton
+
+\`\`\`javascript
+class DatabaseConnection {
+  constructor() {
+    if (DatabaseConnection.instance) {
+      return DatabaseConnection.instance;
+    }
+
+    this.connectionString = 'localhost:5432/mydb';
+    this.connected = false;
+    DatabaseConnection.instance = this;
+  }
+
+  connect() {
+    if (!this.connected) {
+      this.connected = true;
+      return 'Conectado ao banco de dados';
+    }
+    return 'Já está conectado';
+  }
+
+  disconnect() {
+    if (this.connected) {
+      this.connected = false;
+      return 'Desconectado do banco de dados';
+    }
+    return 'Já está desconectado';
+  }
+
+  getStatus() {
+    return this.connected ? 'Conectado' : 'Desconectado';
+  }
+}
+
+// Uso do Singleton
+const db1 = new DatabaseConnection();
+const db2 = new DatabaseConnection();
+
+console.log(db1 === db2); // true - mesma instância
+console.log(db1.connect());
+console.log(db2.getStatus()); // "Conectado"
+\`\`\`
+
+### Factory Pattern
+
+\`\`\`javascript
+class AnimalFactory {
+  static criarAnimal(tipo, nome) {
+    switch (tipo.toLowerCase()) {
+      case 'cachorro':
+        return new Cachorro(nome);
+      case 'gato':
+        return new Gato(nome);
+      case 'passaro':
+        return new Passaro(nome);
+      default:
+        throw new Error(\`Tipo de animal não suportado: \${tipo}\`);
+    }
+  }
+}
+
+// Uso do Factory
+const animais = [
+  AnimalFactory.criarAnimal('cachorro', 'Rex'),
+  AnimalFactory.criarAnimal('gato', 'Mimi'),
+  AnimalFactory.criarAnimal('passaro', 'Piu-Piu')
+];
+
+animais.forEach(animal => {
+  console.log(animal.apresentar());
+  console.log(animal.fazerSom());
+});
+\`\`\`
+
+## Boas Práticas
+
+### 1. Princípio da Responsabilidade Única
+
+\`\`\`javascript
+// ❌ Ruim - classe com múltiplas responsabilidades
+class Usuario {
+  constructor(nome, email) {
+    this.nome = nome;
+    this.email = email;
+  }
+
+  salvar() {
+    // Lógica de persistência
+  }
+
+  enviarEmail() {
+    // Lógica de envio de email
+  }
+
+  validarEmail() {
+    // Lógica de validação
+  }
+}
+
+// ✅ Bom - classes com responsabilidades específicas
+class Usuario {
+  constructor(nome, email) {
+    this.nome = nome;
+    this.email = email;
+  }
+}
+
+class UsuarioRepository {
+  salvar(usuario) {
+    // Lógica de persistência
+  }
+}
+
+class EmailService {
+  enviarEmail(destinatario, assunto, corpo) {
+    // Lógica de envio de email
+  }
+}
+
+class ValidadorEmail {
+  validar(email) {
+    // Lógica de validação
+  }
+}
+\`\`\`
+
+### 2. Encapsulamento Adequado
+
+\`\`\`javascript
+// ✅ Bom - encapsulamento com getters e setters
+class Produto {
+  constructor(nome, preco) {
+    this._nome = nome;
+    this._preco = preco;
+  }
+
+  get nome() {
+    return this._nome;
+  }
+
+  set nome(novoNome) {
+    if (!novoNome || novoNome.trim() === '') {
+      throw new Error('Nome não pode ser vazio');
+    }
+    this._nome = novoNome;
+  }
+
+  get preco() {
+    return this._preco;
+  }
+
+  set preco(novoPreco) {
+    if (novoPreco < 0) {
+      throw new Error('Preço não pode ser negativo');
+    }
+    this._preco = novoPreco;
+  }
+}
+\`\`\`
+
+## Conclusão
+
+A Programação Orientada a Objetos em JavaScript oferece uma forma poderosa de organizar e estruturar código complexo. Com o suporte moderno a classes, herança, encapsulamento e outros conceitos OOP, JavaScript se tornou uma linguagem ainda mais versátil.
+
+### Principais Benefícios:
+
+1. **Organização**: Código mais limpo e organizado
+2. **Reutilização**: Componentes podem ser reutilizados facilmente
+3. **Manutenibilidade**: Mais fácil de manter e modificar
+4. **Escalabilidade**: Estrutura que cresce bem com o projeto
+5. **Abstração**: Complexidade oculta através de interfaces claras
+
+### Quando Usar OOP:
+
+- **Projetos grandes** com múltiplos desenvolvedores
+- **Aplicações complexas** com muitas entidades relacionadas
+- **Sistemas que precisam** de alta manutenibilidade
+- **Código que será** reutilizado em diferentes contextos
+
+Lembre-se: OOP é uma ferramenta, não uma solução para todos os problemas. Use quando fizer sentido para o seu projeto e sempre priorize a clareza e simplicidade do código.`,
+      author: 'Fábio Ferreira',
+      publishedAt: '2024-01-25T16:45:00Z',
+      updatedAt: '2024-01-25T16:45:00Z',
+      tags: ['JavaScript', 'OOP', 'Programação Orientada a Objetos', 'Classes'],
+      readingTime: 20,
+      featured: true,
+    },
   });
 
   useEffect(() => {

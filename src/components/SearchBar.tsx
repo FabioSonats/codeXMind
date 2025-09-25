@@ -54,6 +54,12 @@ export default function SearchBar() {
         slug: 'logica-programacao-python',
       },
       {
+        id: '5',
+        title: 'Programação Orientada a Objetos com JavaScript',
+        type: 'article',
+        slug: 'programacao-orientada-objetos-javascript',
+      },
+      {
         id: '4',
         title: 'CSS Grid Layout',
         type: 'library',
