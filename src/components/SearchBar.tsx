@@ -49,6 +49,12 @@ export default function SearchBar() {
       },
       {
         id: '4',
+        title: 'Lógica de Programação com Python',
+        type: 'article',
+        slug: 'logica-programacao-python',
+      },
+      {
+        id: '4',
         title: 'CSS Grid Layout',
         type: 'library',
         slug: 'css-grid-layout',

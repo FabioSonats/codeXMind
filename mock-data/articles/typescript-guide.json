@@ -1,0 +1,24 @@
+{
+  "id": "2",
+  "title": "TypeScript Guide",
+  "slug": "typescript-guide",
+  "excerpt": "Complete guide to TypeScript for modern development",
+  "content": "# TypeScript Guide\n\nTypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.\n\n## What is TypeScript?\n\nTypeScript is a superset of JavaScript that adds static type definitions. It helps catch errors during development and provides better IDE support.\n\n## Basic Types\n\n### Primitive Types\n\n```typescript\n// Boolean\nlet isDone: boolean = false;\n\n// Number\nlet decimal: number = 6;\nlet hex: number = 0xf00d;\nlet binary: number = 0b1010;\nlet octal: number = 0o744;\n\n// String\nlet color: string = \"blue\";\ncolor = 'red';\n\n// Array\nlet list: number[] = [1, 2, 3];\nlet list2: Array<number> = [1, 2, 3];\n\n// Tuple\nlet x: [string, number];\nx = [\"hello\", 10];\n\n// Enum\nenum Color {Red, Green, Blue}\nlet c: Color = Color.Green;\n\n// Any\nlet notSure: any = 4;\nnotSure = \"maybe a string instead\";\nnotSure = false;\n\n// Void\nfunction warnUser(): void {\n    console.log(\"This is my warning message\");\n}\n\n// Null and Undefined\nlet u: undefined = undefined;\nlet n: null = null;\n```\n\n## Interfaces\n\n```typescript\ninterface User {\n  readonly id: number;\n  name: string;\n  email?: string;\n  age: number;\n}\n\nfunction createUser(user: User): User {\n  return {\n    id: Math.random(),\n    name: user.name,\n    email: user.email,\n    age: user.age\n  };\n}\n\n// Usage\nconst newUser = createUser({\n  name: \"John Doe\",\n  age: 30\n});\n```\n\n## Classes\n\n```typescript\nclass Animal {\n  private name: string;\n  protected age: number;\n  public species: string;\n\n  constructor(name: string, age: number, species: string) {\n    this.name = name;\n    this.age = age;\n    this.species = species;\n  }\n\n  public getName(): string {\n    return this.name;\n  }\n\n  protected getAge(): number {\n    return this.age;\n  }\n}\n\nclass Dog extends Animal {\n  private breed: string;\n\n  constructor(name: string, age: number, breed: string) {\n    super(name, age, \"Canine\");\n    this.breed = breed;\n  }\n\n  public getBreed(): string {\n    return this.breed;\n  }\n\n  public getInfo(): string {\n    return `${this.getName()} is a ${this.breed} and is ${this.getAge()} years old`;\n  }\n}\n```\n\n## Generics\n\n```typescript\nfunction identity<T>(arg: T): T {\n  return arg;\n}\n\nlet output = identity<string>(\"myString\");\nlet output2 = identity(\"myString\"); // Type inference\n\n// Generic interfaces\ninterface GenericIdentityFn<T> {\n  (arg: T): T;\n}\n\nlet myIdentity: GenericIdentityFn<number> = identity;\n\n// Generic classes\nclass GenericNumber<T> {\n  zeroValue: T;\n  add: (x: T, y: T) => T;\n}\n\nlet myGenericNumber = new GenericNumber<number>();\nmyGenericNumber.zeroValue = 0;\nmyGenericNumber.add = function(x, y) { return x + y; };\n```\n\n## Advanced Types\n\n### Union Types\n\n```typescript\nfunction padLeft(value: string, padding: string | number) {\n  if (typeof padding === \"number\") {\n    return Array(padding + 1).join(\" \") + value;\n  }\n  if (typeof padding === \"string\") {\n    return padding + value;\n  }\n  throw new Error(`Expected string or number, got '${padding}'.`);\n}\n```\n\n### Type Guards\n\n```typescript\nfunction isFish(pet: Fish | Bird): pet is Fish {\n  return (pet as Fish).swim !== undefined;\n}\n\nfunction move(pet: Fish | Bird) {\n  if (isFish(pet)) {\n    pet.swim();\n  } else {\n    pet.fly();\n  }\n}\n```\n\n## Best Practices\n\n1. **Use strict mode** - Enable strict type checking\n2. **Prefer interfaces over types** - For object shapes\n3. **Use type assertions carefully** - Only when you're certain about the type\n4. **Leverage type inference** - Let TypeScript infer types when possible\n5. **Use enums for constants** - Better than magic strings/numbers\n\n## Conclusion\n\nTypeScript provides a robust foundation for building scalable applications. It catches errors early, improves code quality, and enhances developer experience.",
+  "author": {
+    "id": "1",
+    "name": "Fábio Ferreira",
+    "avatar": "/avatars/fabio.jpg",
+    "bio": "Desenvolvedor Full-Stack e criador de conteúdo técnico",
+    "social": {
+      "github": "https://github.com/FabioSonats",
+      "linkedin": "https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/",
+      "portfolio": "https://fabiosonats.github.io/my-portifolio/"
+    }
+  },
+  "publishedAt": "2024-01-10T14:20:00Z",
+  "updatedAt": "2024-01-10T14:20:00Z",
+  "tags": ["TypeScript", "JavaScript", "Programming"],
+  "language": "pt",
+  "readingTime": 12,
+  "featured": true
+}

@@ -340,10 +340,10 @@ export default function Contact() {
             <div>
               <div style={contactTextStyle}>E-mail</div>
               <a
-                href='mailto:fabio.ferreira.dev@gmail.com'
+                href='mailto:ferreirafabio51@gmail.com'
                 style={contactLinkStyle}
               >
-                fabio.ferreira.dev@gmail.com
+                ferreirafabio51@gmail.com
               </a>
             </div>
           </div>

@@ -145,7 +145,7 @@ export default function Footer() {
           {/* Contato */}
           <div style={sectionStyle}>
             <h3 style={titleStyle}>Contato</h3>
-            <a href='mailto:fabio.ferreira.dev@gmail.com' style={linkStyle}>
+            <a href='mailto:ferreirafabio51@gmail.com' style={linkStyle}>
               <EmailIcon
                 size={16}
                 style={{
@@ -154,7 +154,7 @@ export default function Footer() {
                   verticalAlign: 'middle',
                 }}
               />
-              fabio.ferreira.dev@gmail.com
+              ferreirafabio51@gmail.com
             </a>
             <a
               href='https://github.com/FabioSonats'

@@ -405,6 +405,425 @@ CSS Grid revolucionou a forma como criamos layouts web. Com sua flexibilidade e 
       readingTime: 10,
       featured: true,
     },
+    'logica-programacao-python': {
+      id: '4',
+      title: 'Lógica de Programação com Python',
+      slug: 'logica-programacao-python',
+      content: `# Lógica de Programação com Python
+
+A lógica de programação é a base fundamental para qualquer desenvolvedor. Python, com sua sintaxe clara e legível, é uma excelente linguagem para aprender esses conceitos essenciais.
+
+## O que é Lógica de Programação?
+
+Lógica de programação é o conjunto de regras e conceitos que permitem criar algoritmos eficientes e soluções para problemas computacionais. É o pensamento estruturado que transforma uma ideia em código executável.
+
+## Variáveis e Tipos de Dados
+
+### Declaração de Variáveis
+Em Python, as variáveis são criadas automaticamente quando você atribui um valor:
+
+\`\`\`python
+# Variáveis básicas
+nome = "João"
+idade = 25
+altura = 1.75
+ativo = True
+
+# Tipos de dados
+print(type(nome))    # <class 'str'>
+print(type(idade))   # <class 'int'>
+print(type(altura))  # <class 'float'>
+print(type(ativo))   # <class 'bool'>
+\`\`\`
+
+### Tipos de Dados Fundamentais
+\`\`\`python
+# String (texto)
+texto = "Olá, mundo!"
+texto_multilinha = """
+Este é um texto
+que ocupa várias linhas
+"""
+
+# Números inteiros
+numero_inteiro = 42
+numero_negativo = -10
+
+# Números decimais
+preco = 19.99
+pi = 3.14159
+
+# Booleanos
+verdadeiro = True
+falso = False
+
+# Listas
+frutas = ["maçã", "banana", "laranja"]
+numeros = [1, 2, 3, 4, 5]
+
+# Dicionários
+pessoa = {
+    "nome": "Maria",
+    "idade": 30,
+    "cidade": "São Paulo"
+}
+\`\`\`
+
+## Estruturas de Controle
+
+### Condicionais (if, elif, else)
+\`\`\`python
+# Estrutura básica
+idade = 18
+
+if idade >= 18:
+    print("Maior de idade")
+elif idade >= 16:
+    print("Pode votar")
+else:
+    print("Menor de idade")
+
+# Operadores lógicos
+nota = 8.5
+frequencia = 85
+
+if nota >= 7 and frequencia >= 75:
+    print("Aprovado")
+elif nota >= 5 or frequencia >= 90:
+    print("Recuperação")
+else:
+    print("Reprovado")
+\`\`\`
+
+### Loops (for e while)
+\`\`\`python
+# Loop for - iterando sobre uma lista
+frutas = ["maçã", "banana", "laranja"]
+for fruta in frutas:
+    print(f"Fruta: {fruta}")
+
+# Loop for com range
+for i in range(5):
+    print(f"Número: {i}")
+
+# Loop while
+contador = 0
+while contador < 5:
+    print(f"Contador: {contador}")
+    contador += 1
+
+# Loop com break e continue
+for numero in range(10):
+    if numero == 3:
+        continue  # Pula o número 3
+    if numero == 7:
+        break     # Para no número 7
+    print(numero)
+\`\`\`
+
+## Funções
+
+### Criando Funções
+\`\`\`python
+# Função simples
+def saudacao():
+    print("Olá, mundo!")
+
+# Função com parâmetros
+def saudacao_personalizada(nome):
+    return f"Olá, {nome}!"
+
+# Função com múltiplos parâmetros
+def calcular_area(comprimento, largura):
+    area = comprimento * largura
+    return area
+
+# Função com parâmetros opcionais
+def apresentar(nome, idade=None):
+    if idade:
+        return f"Meu nome é {nome} e tenho {idade} anos"
+    else:
+        return f"Meu nome é {nome}"
+
+# Chamando as funções
+saudacao()
+mensagem = saudacao_personalizada("Ana")
+area = calcular_area(5, 3)
+apresentacao = apresentar("Carlos", 25)
+\`\`\`
+
+## Estruturas de Dados
+
+### Listas
+\`\`\`python
+# Criando e manipulando listas
+numeros = [1, 2, 3, 4, 5]
+
+# Adicionando elementos
+numeros.append(6)           # [1, 2, 3, 4, 5, 6]
+numeros.insert(0, 0)        # [0, 1, 2, 3, 4, 5, 6]
+
+# Removendo elementos
+numeros.remove(3)           # Remove o primeiro 3
+ultimo = numeros.pop()      # Remove e retorna o último
+
+# Operações com listas
+print(len(numeros))         # Tamanho da lista
+print(max(numeros))         # Maior valor
+print(min(numeros))         # Menor valor
+print(sum(numeros))         # Soma dos valores
+
+# List comprehension
+quadrados = [x**2 for x in range(10)]
+pares = [x for x in range(20) if x % 2 == 0]
+\`\`\`
+
+### Dicionários
+\`\`\`python
+# Criando dicionários
+aluno = {
+    "nome": "João",
+    "idade": 20,
+    "curso": "Ciência da Computação",
+    "notas": [8.5, 9.0, 7.5]
+}
+
+# Acessando valores
+print(aluno["nome"])        # João
+print(aluno.get("idade"))   # 20
+
+# Adicionando/Modificando
+aluno["semestre"] = 3
+aluno["idade"] = 21
+
+# Iterando sobre dicionários
+for chave, valor in aluno.items():
+    print(f"{chave}: {valor}")
+
+# Dicionário comprehension
+quadrados_dict = {x: x**2 for x in range(5)}
+\`\`\`
+
+## Algoritmos Fundamentais
+
+### Busca Linear
+\`\`\`python
+def busca_linear(lista, elemento):
+    """Busca um elemento em uma lista"""
+    for i, item in enumerate(lista):
+        if item == elemento:
+            return i
+    return -1
+
+# Exemplo de uso
+numeros = [1, 3, 5, 7, 9, 11]
+indice = busca_linear(numeros, 7)
+print(f"Elemento 7 encontrado no índice: {indice}")
+\`\`\`
+
+### Ordenação por Bolha
+\`\`\`python
+def ordenacao_bolha(lista):
+    """Ordena uma lista usando o algoritmo bubble sort"""
+    n = len(lista)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if lista[j] > lista[j + 1]:
+                lista[j], lista[j + 1] = lista[j + 1], lista[j]
+    return lista
+
+# Exemplo de uso
+numeros = [64, 34, 25, 12, 22, 11, 90]
+numeros_ordenados = ordenacao_bolha(numeros.copy())
+print(f"Lista original: {numeros}")
+print(f"Lista ordenada: {numeros_ordenados}")
+\`\`\`
+
+### Fatorial
+\`\`\`python
+def fatorial(n):
+    """Calcula o fatorial de um número"""
+    if n < 0:
+        return "Erro: fatorial não definido para números negativos"
+    elif n == 0 or n == 1:
+        return 1
+    else:
+        resultado = 1
+        for i in range(2, n + 1):
+            resultado *= i
+        return resultado
+
+# Versão recursiva
+def fatorial_recursivo(n):
+    if n < 0:
+        return "Erro: fatorial não definido para números negativos"
+    elif n == 0 or n == 1:
+        return 1
+    else:
+        return n * fatorial_recursivo(n - 1)
+
+# Exemplo de uso
+print(f"Fatorial de 5: {fatorial(5)}")
+print(f"Fatorial de 5 (recursivo): {fatorial_recursivo(5)}")
+\`\`\`
+
+## Tratamento de Erros
+
+### Try/Except
+\`\`\`python
+def dividir(a, b):
+    try:
+        resultado = a / b
+        return resultado
+    except ZeroDivisionError:
+        return "Erro: Divisão por zero não é permitida"
+    except TypeError:
+        return "Erro: Tipos de dados inválidos"
+    except Exception as e:
+        return f"Erro inesperado: {e}"
+
+# Exemplos de uso
+print(dividir(10, 2))    # 5.0
+print(dividir(10, 0))    # Erro: Divisão por zero
+print(dividir(10, "a"))  # Erro: Tipos de dados inválidos
+\`\`\`
+
+## Exercícios Práticos
+
+### 1. Calculadora Simples
+\`\`\`python
+def calculadora():
+    print("Calculadora Simples")
+    print("Operações: +, -, *, /")
+    
+    try:
+        num1 = float(input("Digite o primeiro número: "))
+        operacao = input("Digite a operação: ")
+        num2 = float(input("Digite o segundo número: "))
+        
+        if operacao == '+':
+            resultado = num1 + num2
+        elif operacao == '-':
+            resultado = num1 - num2
+        elif operacao == '*':
+            resultado = num1 * num2
+        elif operacao == '/':
+            if num2 != 0:
+                resultado = num1 / num2
+            else:
+                return "Erro: Divisão por zero"
+        else:
+            return "Operação inválida"
+        
+        return f"Resultado: {resultado}"
+    
+    except ValueError:
+        return "Erro: Digite apenas números válidos"
+
+# calculadora()
+\`\`\`
+
+### 2. Jogo de Adivinhação
+\`\`\`python
+import random
+
+def jogo_adivinhacao():
+    numero_secreto = random.randint(1, 100)
+    tentativas = 0
+    max_tentativas = 7
+    
+    print("Jogo de Adivinhação!")
+    print("Pensei em um número entre 1 e 100")
+    print(f"Você tem {max_tentativas} tentativas")
+    
+    while tentativas < max_tentativas:
+        try:
+            palpite = int(input("Digite seu palpite: "))
+            tentativas += 1
+            
+            if palpite == numero_secreto:
+                print(f"Parabéns! Você acertou em {tentativas} tentativas!")
+                return
+            
+            elif palpite < numero_secreto:
+                print("Muito baixo! Tente um número maior.")
+            else:
+                print("Muito alto! Tente um número menor.")
+            
+            print(f"Tentativas restantes: {max_tentativas - tentativas}")
+        
+        except ValueError:
+            print("Digite apenas números!")
+            tentativas -= 1
+    
+    print(f"Game Over! O número era {numero_secreto}")
+
+# jogo_adivinhacao()
+\`\`\`
+
+## Boas Práticas
+
+### 1. Nomes Descritivos
+\`\`\`python
+# Ruim
+a = 10
+b = 20
+c = a + b
+
+# Bom
+idade_usuario = 10
+idade_amigo = 20
+soma_idades = idade_usuario + idade_amigo
+\`\`\`
+
+### 2. Comentários Úteis
+\`\`\`python
+def calcular_imc(peso, altura):
+    """
+    Calcula o Índice de Massa Corporal (IMC)
+    
+    Args:
+        peso (float): Peso em quilogramas
+        altura (float): Altura em metros
+    
+    Returns:
+        float: Valor do IMC
+    """
+    imc = peso / (altura ** 2)
+    return round(imc, 2)
+\`\`\`
+
+### 3. Modularização
+\`\`\`python
+# Separando responsabilidades
+def validar_idade(idade):
+    return isinstance(idade, int) and 0 <= idade <= 150
+
+def validar_nome(nome):
+    return isinstance(nome, str) and len(nome.strip()) > 0
+
+def cadastrar_usuario(nome, idade):
+    if not validar_nome(nome):
+        return "Nome inválido"
+    
+    if not validar_idade(idade):
+        return "Idade inválida"
+    
+    return f"Usuário {nome} cadastrado com sucesso!"
+\`\`\`
+
+## Conclusão
+
+A lógica de programação é a base sólida para se tornar um desenvolvedor competente. Python oferece uma sintaxe clara e intuitiva para aprender esses conceitos fundamentais. Pratique regularmente, resolva problemas e construa projetos para consolidar seu conhecimento.
+
+Lembre-se: a programação é uma habilidade que se desenvolve com prática constante. Comece com problemas simples e gradualmente aumente a complexidade dos desafios.`,
+      author: 'Fábio Ferreira',
+      publishedAt: '2024-01-20T14:30:00Z',
+      updatedAt: '2024-01-20T14:30:00Z',
+      tags: ['Python', 'Lógica de Programação', 'Algoritmos'],
+      readingTime: 15,
+      featured: true,
+    },
   });
 
   useEffect(() => {

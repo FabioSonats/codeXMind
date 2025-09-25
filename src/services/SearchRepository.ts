@@ -45,6 +45,15 @@ export class SearchRepository {
       },
       {
         id: '4',
+        title: 'Lógica de Programação com Python',
+        type: 'article',
+        excerpt:
+          'Aprenda os fundamentos da lógica de programação usando Python',
+        slug: 'logica-programacao-python',
+        tags: ['Python', 'Lógica de Programação', 'Algoritmos'],
+      },
+      {
+        id: '4',
         title: 'CSS Grid Layout',
         type: 'library',
         excerpt: 'Master CSS Grid layout for modern web design',
@@ -94,6 +103,7 @@ export class SearchRepository {
       'CSS Flexbox',
       'CSS Grid',
       'Python',
+      'Lógica de Programação',
       'JavaScript',
       'Vue.js',
       'Angular',
@@ -153,6 +163,8 @@ export class SearchRepository {
       'CSS',
       'HTML',
       'Python',
+      'Lógica de Programação',
+      'Algoritmos',
       'Vue.js',
       'Angular',
       'Express.js',

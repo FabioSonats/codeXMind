@@ -120,5 +120,29 @@
     "publishedAt": "2024-02-05T11:20:00Z",
     "updatedAt": "2024-02-05T11:20:00Z",
     "featured": false
+  },
+  {
+    "id": "6",
+    "title": "Lógica de Programação com Python",
+    "slug": "logica-programacao-python",
+    "excerpt": "Aprenda os fundamentos da lógica de programação usando Python como linguagem de ensino",
+    "content": "# Lógica de Programação com Python\n\nA lógica de programação é a base fundamental para qualquer desenvolvedor. Python, com sua sintaxe clara e legível, é uma excelente linguagem para aprender esses conceitos essenciais.\n\n## O que é Lógica de Programação?\n\nLógica de programação é o conjunto de regras e conceitos que permitem criar algoritmos eficientes e soluções para problemas computacionais. É o pensamento estruturado que transforma uma ideia em código executável.\n\n## Variáveis e Tipos de Dados\n\n### Declaração de Variáveis\nEm Python, as variáveis são criadas automaticamente quando você atribui um valor:\n\n```python\n# Variáveis básicas\nnome = \"João\"\nidade = 25\naltura = 1.75\nativo = True\n\n# Tipos de dados\nprint(type(nome))    # <class 'str'>\nprint(type(idade))   # <class 'int'>\nprint(type(altura))  # <class 'float'>\nprint(type(ativo))   # <class 'bool'>\n```\n\n## Estruturas de Controle\n\n### Condicionais (if, elif, else)\n```python\n# Estrutura básica\nidade = 18\n\nif idade >= 18:\n    print(\"Maior de idade\")\nelif idade >= 16:\n    print(\"Pode votar\")\nelse:\n    print(\"Menor de idade\")\n```\n\n### Loops (for e while)\n```python\n# Loop for - iterando sobre uma lista\nfrutas = [\"maçã\", \"banana\", \"laranja\"]\nfor fruta in frutas:\n    print(f\"Fruta: {fruta}\")\n\n# Loop while\ncontador = 0\nwhile contador < 5:\n    print(f\"Contador: {contador}\")\n    contador += 1\n```\n\n## Funções\n\n```python\n# Função simples\ndef saudacao():\n    print(\"Olá, mundo!\")\n\n# Função com parâmetros\ndef saudacao_personalizada(nome):\n    return f\"Olá, {nome}!\"\n\n# Chamando as funções\nsaudacao()\nmensagem = saudacao_personalizada(\"Ana\")\n```\n\n## Algoritmos Fundamentais\n\n### Busca Linear\n```python\ndef busca_linear(lista, elemento):\n    \"\"\"Busca um elemento em uma lista\"\"\"\n    for i, item in enumerate(lista):\n        if item == elemento:\n            return i\n    return -1\n```\n\n### Fatorial\n```python\ndef fatorial(n):\n    \"\"\"Calcula o fatorial de um número\"\"\"\n    if n < 0:\n        return \"Erro: fatorial não definido para números negativos\"\n    elif n == 0 or n == 1:\n        return 1\n    else:\n        resultado = 1\n        for i in range(2, n + 1):\n            resultado *= i\n        return resultado\n```\n\n## Conclusão\n\nA lógica de programação é a base sólida para se tornar um desenvolvedor competente. Python oferece uma sintaxe clara e intuitiva para aprender esses conceitos fundamentais. Pratique regularmente, resolva problemas e construa projetos para consolidar seu conhecimento.",
+    "author": {
+      "id": "1",
+      "name": "Fábio Ferreira",
+      "avatar": "/avatars/fabio.jpg",
+      "bio": "Desenvolvedor Full-Stack e criador de conteúdo técnico",
+      "social": {
+        "github": "https://github.com/FabioSonats",
+        "linkedin": "https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/",
+        "portfolio": "https://fabiosonats.github.io/my-portifolio/"
+      }
+    },
+    "tags": ["Python", "Lógica de Programação", "Algoritmos"],
+    "language": "pt",
+    "readingTime": 15,
+    "publishedAt": "2024-01-20T14:30:00Z",
+    "updatedAt": "2024-01-20T14:30:00Z",
+    "featured": true
   }
 ]
