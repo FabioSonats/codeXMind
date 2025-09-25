@@ -233,11 +233,12 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 👨‍💻 Autor
 
-**P. Sonats**
+**Fábio Ferreira**
 
 - Portfólio: [https://fabiosonats.github.io/my-portifolio/](https://fabiosonats.github.io/my-portifolio/)
-- GitHub: [@fabiosonats](https://github.com/fabiosonats)
-- Twitter: [@fabiosonats](https://twitter.com/fabiosonats)
+- GitHub: [@FabioSonats](https://github.com/FabioSonats)
+- LinkedIn: [Fábio Ferreira](https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/)
+- WhatsApp: [+55 42 99164-3802](https://wa.me/5542991643802)
 
 ## 🙏 Agradecimentos
 
@@ -248,4 +249,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ---
 
-**Criado com ❤️ por P. Sonats**
+**Criado com ❤️ por Fábio Ferreira**
