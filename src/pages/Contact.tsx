@@ -1,4 +1,13 @@
 import React, { useState } from 'react';
+import {
+  GitHubIcon,
+  LinkedInIcon,
+  PortfolioIcon,
+  WhatsAppIcon,
+  EmailIcon,
+  ClockIcon,
+  GlobeIcon,
+} from '../components/icons/SocialIcons';
 
 /**
  * Contact Page Component
@@ -179,10 +188,6 @@ export default function Contact() {
     borderRadius: '0.5rem',
   };
 
-  const contactIconStyle = {
-    fontSize: '1.5rem',
-  };
-
   const contactTextStyle = {
     color: '#cbd5e1',
   };
@@ -331,17 +336,20 @@ export default function Contact() {
           <h2 style={infoTitleStyle}>Informações de Contato</h2>
 
           <div style={contactItemStyle}>
-            <span style={contactIconStyle}>📧</span>
+            <EmailIcon size={24} style={{ color: '#22d3ee' }} />
             <div>
               <div style={contactTextStyle}>E-mail</div>
-              <a href='mailto:contato@codexmind.com' style={contactLinkStyle}>
-                contato@codexmind.com
+              <a
+                href='mailto:fabio.ferreira.dev@gmail.com'
+                style={contactLinkStyle}
+              >
+                fabio.ferreira.dev@gmail.com
               </a>
             </div>
           </div>
 
           <div style={contactItemStyle}>
-            <span style={contactIconStyle}>⏰</span>
+            <ClockIcon size={24} style={{ color: '#22d3ee' }} />
             <div>
               <div style={contactTextStyle}>Tempo de Resposta</div>
               <div style={contactTextStyle}>24-48 horas</div>
@@ -349,7 +357,7 @@ export default function Contact() {
           </div>
 
           <div style={contactItemStyle}>
-            <span style={contactIconStyle}>🌍</span>
+            <GlobeIcon size={24} style={{ color: '#22d3ee' }} />
             <div>
               <div style={contactTextStyle}>Localização</div>
               <div style={contactTextStyle}>Brasil (GMT-3)</div>
@@ -365,7 +373,8 @@ export default function Contact() {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                📱 GitHub
+                <GitHubIcon size={16} style={{ marginRight: '0.5rem' }} />
+                GitHub
               </a>
               <a
                 href='https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/'
@@ -373,7 +382,8 @@ export default function Contact() {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                💼 LinkedIn
+                <LinkedInIcon size={16} style={{ marginRight: '0.5rem' }} />
+                LinkedIn
               </a>
               <a
                 href='https://fabiosonats.github.io/my-portifolio/'
@@ -381,7 +391,8 @@ export default function Contact() {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                🌐 Portfolio
+                <PortfolioIcon size={16} style={{ marginRight: '0.5rem' }} />
+                Portfolio
               </a>
               <a
                 href='https://wa.me/5542991643802'
@@ -389,7 +400,8 @@ export default function Contact() {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                📞 WhatsApp
+                <WhatsAppIcon size={16} style={{ marginRight: '0.5rem' }} />
+                WhatsApp
               </a>
             </div>
           </div>

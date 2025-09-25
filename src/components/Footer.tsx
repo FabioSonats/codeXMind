@@ -1,5 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {
+  GitHubIcon,
+  LinkedInIcon,
+  PortfolioIcon,
+  WhatsAppIcon,
+  EmailIcon,
+} from './icons/SocialIcons';
 
 /**
  * Footer Component
@@ -142,6 +149,14 @@ export default function Footer() {
           <div style={sectionStyle}>
             <h3 style={titleStyle}>Contato</h3>
             <a href='mailto:fabio.ferreira.dev@gmail.com' style={linkStyle}>
+              <EmailIcon
+                size={16}
+                style={{
+                  marginRight: '0.5rem',
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                }}
+              />
               fabio.ferreira.dev@gmail.com
             </a>
             <a
@@ -150,6 +165,14 @@ export default function Footer() {
               target='_blank'
               rel='noopener noreferrer'
             >
+              <GitHubIcon
+                size={16}
+                style={{
+                  marginRight: '0.5rem',
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                }}
+              />
               GitHub
             </a>
             <a
@@ -158,6 +181,14 @@ export default function Footer() {
               target='_blank'
               rel='noopener noreferrer'
             >
+              <LinkedInIcon
+                size={16}
+                style={{
+                  marginRight: '0.5rem',
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                }}
+              />
               LinkedIn
             </a>
             <a
@@ -166,6 +197,14 @@ export default function Footer() {
               target='_blank'
               rel='noopener noreferrer'
             >
+              <PortfolioIcon
+                size={16}
+                style={{
+                  marginRight: '0.5rem',
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                }}
+              />
               Portfolio
             </a>
             <a
@@ -174,6 +213,14 @@ export default function Footer() {
               target='_blank'
               rel='noopener noreferrer'
             >
+              <WhatsAppIcon
+                size={16}
+                style={{
+                  marginRight: '0.5rem',
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                }}
+              />
               WhatsApp
             </a>
           </div>
@@ -189,7 +236,7 @@ export default function Footer() {
               target='_blank'
               rel='noopener noreferrer'
             >
-              📱
+              <GitHubIcon size={20} />
             </a>
             <a
               href='https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/'
@@ -197,7 +244,7 @@ export default function Footer() {
               target='_blank'
               rel='noopener noreferrer'
             >
-              💼
+              <LinkedInIcon size={20} />
             </a>
             <a
               href='https://fabiosonats.github.io/my-portifolio/'
@@ -205,7 +252,7 @@ export default function Footer() {
               target='_blank'
               rel='noopener noreferrer'
             >
-              🌐
+              <PortfolioIcon size={20} />
             </a>
             <a
               href='https://wa.me/5542991643802'
@@ -213,7 +260,7 @@ export default function Footer() {
               target='_blank'
               rel='noopener noreferrer'
             >
-              📞
+              <WhatsAppIcon size={20} />
             </a>
           </div>
 

@@ -1,5 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {
+  GitHubIcon,
+  LinkedInIcon,
+  PortfolioIcon,
+  WhatsAppIcon,
+} from '../components/icons/SocialIcons';
 
 /**
  * About Page Component
@@ -245,7 +251,8 @@ export default function About() {
               target='_blank'
               rel='noopener noreferrer'
             >
-              📱 GitHub
+              <GitHubIcon size={16} style={{ marginRight: '0.5rem' }} />
+              GitHub
             </a>
             <a
               href='https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/'
@@ -253,7 +260,8 @@ export default function About() {
               target='_blank'
               rel='noopener noreferrer'
             >
-              💼 LinkedIn
+              <LinkedInIcon size={16} style={{ marginRight: '0.5rem' }} />
+              LinkedIn
             </a>
             <a
               href='https://fabiosonats.github.io/my-portifolio/'
@@ -261,7 +269,8 @@ export default function About() {
               target='_blank'
               rel='noopener noreferrer'
             >
-              🌐 Portfolio
+              <PortfolioIcon size={16} style={{ marginRight: '0.5rem' }} />
+              Portfolio
             </a>
             <a
               href='https://wa.me/5542991643802'
@@ -269,7 +278,8 @@ export default function About() {
               target='_blank'
               rel='noopener noreferrer'
             >
-              📞 WhatsApp
+              <WhatsAppIcon size={16} style={{ marginRight: '0.5rem' }} />
+              WhatsApp
             </a>
           </div>
         </div>

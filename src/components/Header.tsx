@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { SearchIcon, MenuIcon, CloseIcon } from './icons/SocialIcons';
 // import SearchBar from './SearchBar';
 
 /**
@@ -111,9 +112,12 @@ export default function Header() {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              🔍
+              <SearchIcon size={20} />
             </button>
           </div>
 
@@ -130,9 +134,12 @@ export default function Header() {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              🔍
+              <SearchIcon size={20} />
             </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -142,9 +149,16 @@ export default function Header() {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              {isMobileMenuOpen ? '✕' : '☰'}
+              {isMobileMenuOpen ? (
+                <CloseIcon size={20} />
+              ) : (
+                <MenuIcon size={20} />
+              )}
             </button>
           </div>
         </div>
