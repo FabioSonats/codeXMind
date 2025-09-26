@@ -166,7 +166,7 @@ export default function Categories() {
                     {categories.map((category) => (
                         <Link
                             key={category.id}
-                            to={`/artigos?category=${category.slug}`}
+                            to={`/${category.slug}`}
                             style={categoryCardStyle}
                             onMouseEnter={(e) => {
                                 Object.assign(e.currentTarget.style, categoryCardHoverStyle);

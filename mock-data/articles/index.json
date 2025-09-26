@@ -1,7 +1,15 @@
 [
   "react-hooks-tutorial.json",
+  "react-context-api.json",
+  "react-performance-optimization.json",
   "typescript-guide.json",
   "css-grid-layout-mastery.json",
   "logica-programacao-python.json",
-  "programacao-orientada-objetos-javascript.json"
+  "python-data-science.json",
+  "programacao-orientada-objetos-javascript.json",
+  "javascript-moderno-es6.json",
+  "javascript-async-programming.json",
+  "javascript-functional-programming.json",
+  "ia-generativa-2024.json",
+  "web3-blockchain-2024.json"
 ]

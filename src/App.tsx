@@ -6,6 +6,11 @@ import Home from './pages/Home';
 import Articles from './pages/Articles';
 import ArticleDetail from './pages/ArticleDetail';
 import Categories from './pages/Categories';
+import CategoryArticles from './pages/CategoryArticles';
+import JavaScript from './pages/JavaScript';
+import ReactPage from './pages/React';
+import Python from './pages/Python';
+import Noticias from './pages/Noticias';
 import Library from './pages/Library';
 import AI from './pages/AI';
 import About from './pages/About';
@@ -29,6 +34,11 @@ function AppContent() {
           <Route path="/artigos" element={<Articles />} />
           <Route path="/artigos/:slug" element={<ArticleDetail />} />
           <Route path="/categorias" element={<Categories />} />
+          <Route path="/categoria/:categorySlug" element={<CategoryArticles />} />
+          <Route path="/javascript" element={<JavaScript />} />
+          <Route path="/react" element={<ReactPage />} />
+          <Route path="/python" element={<Python />} />
+          <Route path="/noticias" element={<Noticias />} />
           <Route path="/biblioteca" element={<Library />} />
           <Route path="/ia" element={<AI />} />
           <Route path="/sobre" element={<About />} />

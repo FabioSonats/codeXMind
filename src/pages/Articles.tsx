@@ -1,84 +1,75 @@
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   MagnifyingGlassIcon,
+  FunnelIcon,
   ClockIcon,
   UserIcon,
-  ChevronRightIcon,
+  TagIcon,
+  EyeIcon,
+  StarIcon,
 } from '@heroicons/react/24/outline';
-import { CategoriesRepository } from '../services/CategoriesRepository';
 import { ArticlesRepository } from '../services/ArticlesRepository';
-import type { Category, Article } from '../types';
+import type { Article } from '../types';
 
 /**
  * Articles Page Component
- * Displays categories with their articles organized in cards
+ * Displays all articles with search, filtering, and sorting capabilities
  */
 export default function Articles() {
-  const [searchParams] = useSearchParams();
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [articlesByCategory, setArticlesByCategory] = useState<Record<string, Article[]>>({});
+  const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedTag, setSelectedTag] = useState<string>('');
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('');
+  const [sortBy, setSortBy] = useState<'popular' | 'recent' | 'readingTime'>('popular');
 
-  // Get search from URL params
   useEffect(() => {
-    const search = searchParams.get('search');
-    if (search) {
-      setSearchQuery(search);
-    }
-  }, [searchParams]);
-
-  // Load categories and articles
-  useEffect(() => {
-    const loadData = async () => {
+    const loadArticles = async () => {
       try {
         setLoading(true);
-        
-        // Load categories
-        const categoriesRepository = new CategoriesRepository();
-        const categoriesData = await categoriesRepository.getCategories();
-        setCategories(categoriesData);
-
-        // Load articles for each category
         const articlesRepository = new ArticlesRepository();
-        const allArticles = await articlesRepository.getArticles(1, 100, { type: 'article' });
-        
-        // Group articles by category
-        const grouped: Record<string, Article[]> = {};
-        allArticles.data.forEach(article => {
-          if (!grouped[article.category]) {
-            grouped[article.category] = [];
-          }
-          grouped[article.category].push(article);
+        const response = await articlesRepository.getArticles(1, 100, {
+          type: 'article',
+          query: searchQuery,
+          tags: selectedTag ? [selectedTag] : undefined,
+          language: selectedLanguage || undefined,
         });
-        
-        setArticlesByCategory(grouped);
+        setArticles(response.data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Erro ao carregar dados');
+        setError(err instanceof Error ? err.message : 'Erro ao carregar artigos');
       } finally {
         setLoading(false);
       }
     };
 
-    loadData();
-  }, []);
+    loadArticles();
+  }, [searchQuery, selectedTag, selectedLanguage]);
 
-  // Filter categories and articles based on search
-  const filteredCategories = categories.filter(category => {
-    if (!searchQuery) return true;
-    return (
-      category.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      category.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      articlesByCategory[category.slug]?.some(article =>
-        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    );
+  // Sort articles based on selected criteria
+  const sortedArticles = [...articles].sort((a, b) => {
+    switch (sortBy) {
+      case 'popular':
+        // Sort by featured first, then by reading time (shorter = more popular)
+        if (a.featured && !b.featured) return -1;
+        if (!a.featured && b.featured) return 1;
+        return a.readingTime - b.readingTime;
+      case 'recent':
+        return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+      case 'readingTime':
+        return a.readingTime - b.readingTime;
+      default:
+        return 0;
+    }
   });
 
-  // Estilos para a página
+  // Get all unique tags and languages
+  const allTags = [...new Set(articles.flatMap(article => article.tags))];
+  const allLanguages = [...new Set(articles.map(article => article.language))];
+
+  // Styles
   const pageStyle = {
     minHeight: '100vh',
     backgroundColor: '#0f172a',
@@ -92,8 +83,8 @@ export default function Articles() {
   };
 
   const headerStyle = {
-    textAlign: 'center' as const,
     marginBottom: '3rem',
+    textAlign: 'center' as const,
   };
 
   const titleStyle = {
@@ -104,124 +95,204 @@ export default function Articles() {
     background: 'linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
   };
 
   const subtitleStyle = {
-    fontSize: '1.25rem',
     color: '#94a3b8',
-    maxWidth: '600px',
-    margin: '0 auto',
+    fontSize: '1.25rem',
     lineHeight: '1.6',
+    marginBottom: '2rem',
   };
 
-  const searchContainerStyle = {
-    backgroundColor: 'rgba(30, 41, 59, 0.5)',
-    borderRadius: '1.5rem',
-    padding: '2rem',
-    marginBottom: '3rem',
-    border: '1px solid #334155',
-    backdropFilter: 'blur(10px)',
+  const searchAndFiltersContainerStyle = {
+    marginBottom: '2rem',
+  };
+
+  const searchAndFiltersRowStyle = {
+    display: 'flex',
+    alignItems: 'stretch',
+    gap: '1rem',
+    marginBottom: '1rem',
   };
 
   const searchInputStyle = {
-    width: '100%',
-    padding: '1rem 1rem 1rem 3rem',
-    fontSize: '1rem',
+    flex: 1,
+    padding: '0.875rem 0.875rem 0.875rem 2.75rem',
+    fontSize: '0.875rem',
     backgroundColor: '#1e293b',
     border: '1px solid #334155',
-    borderRadius: '0.75rem',
+    borderRadius: '0.5rem',
     color: 'white',
     outline: 'none',
   };
 
   const searchIconStyle = {
     position: 'absolute' as const,
-    left: '1rem',
+    left: '0.875rem',
     top: '50%',
     transform: 'translateY(-50%)',
     color: '#94a3b8',
-    width: '20px',
-    height: '20px',
+    width: '18px',
+    height: '18px',
   };
 
-  const categoriesGridStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-    gap: '2rem',
-  };
-
-  const categoryCardStyle = {
+  const filterButtonStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    padding: '0.875rem 1rem',
     backgroundColor: '#1e293b',
-    borderRadius: '1.5rem',
-    padding: '2rem',
     border: '1px solid #334155',
-    transition: 'all 0.3s ease',
+    borderRadius: '0.5rem',
+    color: '#cbd5e1',
+    fontSize: '0.875rem',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    whiteSpace: 'nowrap' as const,
   };
 
-  const categoryHeaderStyle = {
+  const activeFilterButtonStyle = {
+    ...filterButtonStyle,
+    backgroundColor: '#22d3ee',
+    borderColor: '#22d3ee',
+    color: '#0f172a',
+  };
+
+  const clearFiltersStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.25rem',
+    padding: '0.875rem 0.75rem',
+    backgroundColor: 'transparent',
+    border: '1px solid #ef4444',
+    borderRadius: '0.5rem',
+    color: '#ef4444',
+    fontSize: '0.875rem',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    whiteSpace: 'nowrap' as const,
+  };
+
+  const filtersContainerStyle = {
+    display: showFilters ? 'block' : 'none',
+    backgroundColor: '#1e293b',
+    borderRadius: '0.75rem',
+    padding: '1.5rem',
+    border: '1px solid #334155',
+    marginBottom: '2rem',
+  };
+
+  const filtersGridStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '1rem',
+    marginBottom: '1rem',
+  };
+
+  const filterGroupStyle = {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    gap: '0.5rem',
+  };
+
+  const filterLabelStyle = {
+    color: '#cbd5e1',
+    fontSize: '0.875rem',
+    fontWeight: '500',
+  };
+
+  const filterSelectStyle = {
+    padding: '0.5rem',
+    backgroundColor: '#0f172a',
+    border: '1px solid #334155',
+    borderRadius: '0.375rem',
+    color: 'white',
+    fontSize: '0.875rem',
+  };
+
+  const sortContainerStyle = {
     display: 'flex',
     alignItems: 'center',
     gap: '1rem',
-    marginBottom: '1.5rem',
+    marginBottom: '2rem',
   };
 
-  const categoryIconStyle = {
-    fontSize: '2.5rem',
-  };
-
-  const categoryTitleStyle = {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    color: 'white',
-    margin: 0,
-  };
-
-  const categoryDescriptionStyle = {
-    color: '#94a3b8',
+  const sortLabelStyle = {
+    color: '#cbd5e1',
     fontSize: '0.875rem',
-    marginBottom: '1.5rem',
-    lineHeight: '1.5',
+    fontWeight: '500',
+  };
+
+  const sortButtonsStyle = {
+    display: 'flex',
+    gap: '0.5rem',
+  };
+
+  const sortButtonStyle = {
+    padding: '0.5rem 1rem',
+    backgroundColor: '#1e293b',
+    border: '1px solid #334155',
+    borderRadius: '0.375rem',
+    color: '#cbd5e1',
+    fontSize: '0.875rem',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  };
+
+  const activeSortButtonStyle = {
+    ...sortButtonStyle,
+    backgroundColor: '#22d3ee',
+    borderColor: '#22d3ee',
+    color: '#0f172a',
   };
 
   const articlesListStyle = {
     display: 'flex',
     flexDirection: 'column' as const,
-    gap: '1rem',
+    gap: '1.5rem',
   };
 
   const articleItemStyle = {
-    backgroundColor: '#0f172a',
-    borderRadius: '0.75rem',
-    padding: '1.25rem',
+    backgroundColor: '#1e293b',
+    borderRadius: '1rem',
+    padding: '1.5rem',
     border: '1px solid #334155',
-    transition: 'all 0.2s ease',
+    transition: 'all 0.3s ease',
     textDecoration: 'none',
     color: 'white',
     display: 'block',
   };
 
+  const articleHeaderStyle = {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    marginBottom: '1rem',
+  };
+
   const articleTitleStyle = {
-    fontSize: '1.125rem',
+    fontSize: '1.5rem',
     fontWeight: '600',
     color: 'white',
     marginBottom: '0.5rem',
     lineHeight: '1.4',
+    flex: 1,
   };
 
   const articleExcerptStyle = {
     color: '#94a3b8',
-    fontSize: '0.875rem',
-    lineHeight: '1.5',
-    marginBottom: '0.75rem',
+    fontSize: '1rem',
+    lineHeight: '1.6',
+    marginBottom: '1rem',
   };
 
   const articleMetaStyle = {
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem',
-    fontSize: '0.75rem',
+    gap: '1.5rem',
+    fontSize: '0.875rem',
     color: '#64748b',
+    flexWrap: 'wrap' as const,
   };
 
   const metaItemStyle = {
@@ -230,29 +301,59 @@ export default function Articles() {
     gap: '0.25rem',
   };
 
-  const viewAllStyle = {
+  const tagsStyle = {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
     gap: '0.5rem',
-    marginTop: '1.5rem',
-    padding: '0.75rem',
+    flexWrap: 'wrap' as const,
+  };
+
+  const tagStyle = {
+    backgroundColor: '#334155',
+    color: '#cbd5e1',
+    padding: '0.25rem 0.5rem',
+    borderRadius: '0.375rem',
+    fontSize: '0.75rem',
+  };
+
+  const featuredBadgeStyle = {
     backgroundColor: '#22d3ee',
     color: '#0f172a',
-    borderRadius: '0.5rem',
-    textDecoration: 'none',
-    fontSize: '0.875rem',
+    padding: '0.25rem 0.5rem',
+    borderRadius: '0.375rem',
+    fontSize: '0.75rem',
     fontWeight: '500',
-    transition: 'all 0.2s ease',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.25rem',
+  };
+
+  const loadingStyle = {
+    textAlign: 'center' as const,
+    color: '#94a3b8',
+    fontSize: '1.25rem',
+    padding: '4rem 0',
+  };
+
+  const errorStyle = {
+    textAlign: 'center' as const,
+    color: '#ef4444',
+    fontSize: '1.25rem',
+    padding: '4rem 0',
+  };
+
+  const noResultsStyle = {
+    textAlign: 'center' as const,
+    color: '#94a3b8',
+    fontSize: '1.125rem',
+    padding: '4rem 0',
   };
 
   if (loading) {
     return (
       <div style={pageStyle}>
         <div style={containerStyle}>
-          <div style={{ textAlign: 'center', color: '#94a3b8', fontSize: '1.25rem', padding: '4rem 0' }}>
-            Carregando artigos...
-          </div>
+          <div style={loadingStyle}>Carregando artigos...</div>
         </div>
       </div>
     );
@@ -262,9 +363,7 @@ export default function Articles() {
     return (
       <div style={pageStyle}>
         <div style={containerStyle}>
-          <div style={{ textAlign: 'center', color: '#ef4444', fontSize: '1.25rem', padding: '4rem 0' }}>
-            Erro: {error}
-          </div>
+          <div style={errorStyle}>Erro: {error}</div>
         </div>
       </div>
     );
@@ -277,102 +376,170 @@ export default function Articles() {
         <div style={headerStyle}>
           <h1 style={titleStyle}>Artigos</h1>
           <p style={subtitleStyle}>
-            Explore nossa coleção de artigos organizados por categoria. 
-            Encontre conteúdo específico sobre suas tecnologias favoritas.
+            Explore nossa coleção completa de artigos sobre tecnologia, programação e desenvolvimento.
           </p>
         </div>
 
-        {/* Search Bar */}
-        <div style={searchContainerStyle}>
-          <div style={{ position: 'relative' }}>
-            <MagnifyingGlassIcon style={searchIconStyle} />
-            <input
-              type="text"
-              placeholder="Buscar por categoria ou artigo..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={searchInputStyle}
-            />
+        {/* Search and Filters */}
+        <div style={searchAndFiltersContainerStyle}>
+          <div style={searchAndFiltersRowStyle}>
+            <div style={{ position: 'relative', flex: 1 }}>
+              <MagnifyingGlassIcon style={searchIconStyle} />
+              <input
+                type="text"
+                placeholder="Buscar artigos..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={searchInputStyle}
+              />
+            </div>
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              style={showFilters ? activeFilterButtonStyle : filterButtonStyle}
+            >
+              <FunnelIcon style={{ width: '16px', height: '16px' }} />
+              Filtros
+            </button>
+            {(selectedTag || selectedLanguage) && (
+              <button
+                onClick={() => {
+                  setSelectedTag('');
+                  setSelectedLanguage('');
+                }}
+                style={clearFiltersStyle}
+              >
+                Limpar
+              </button>
+            )}
+          </div>
+
+          {/* Filters Panel */}
+          <div style={filtersContainerStyle}>
+            <div style={filtersGridStyle}>
+              <div style={filterGroupStyle}>
+                <label style={filterLabelStyle}>Tag</label>
+                <select
+                  value={selectedTag}
+                  onChange={(e) => setSelectedTag(e.target.value)}
+                  style={filterSelectStyle}
+                >
+                  <option value="">Todas as tags</option>
+                  {allTags.map(tag => (
+                    <option key={tag} value={tag}>{tag}</option>
+                  ))}
+                </select>
+              </div>
+              <div style={filterGroupStyle}>
+                <label style={filterLabelStyle}>Idioma</label>
+                <select
+                  value={selectedLanguage}
+                  onChange={(e) => setSelectedLanguage(e.target.value)}
+                  style={filterSelectStyle}
+                >
+                  <option value="">Todos os idiomas</option>
+                  {allLanguages.map(lang => (
+                    <option key={lang} value={lang}>{lang.toUpperCase()}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Categories Grid */}
-        <div style={categoriesGridStyle}>
-          {filteredCategories.map((category) => {
-            const articles = articlesByCategory[category.slug] || [];
-            const displayArticles = articles.slice(0, 3); // Show max 3 articles per category
-            
-            return (
-              <div key={category.id} style={categoryCardStyle}>
-                {/* Category Header */}
-                <div style={categoryHeaderStyle}>
-                  <span style={categoryIconStyle}>{category.icon}</span>
-                  <h3 style={categoryTitleStyle}>{category.name}</h3>
-                </div>
-
-                {/* Category Description */}
-                <p style={categoryDescriptionStyle}>{category.description}</p>
-
-                {/* Articles List */}
-                <div style={articlesListStyle}>
-                  {displayArticles.map((article) => (
-                    <Link
-                      key={article.id}
-                      to={`/artigos/${article.slug}`}
-                      style={articleItemStyle}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = '#22d3ee';
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = '#334155';
-                        e.currentTarget.style.transform = 'translateY(0)';
-                      }}
-                    >
-                      <h4 style={articleTitleStyle}>{article.title}</h4>
-                      <p style={articleExcerptStyle}>{article.excerpt}</p>
-                      <div style={articleMetaStyle}>
-                        <div style={metaItemStyle}>
-                          <ClockIcon style={{ width: '14px', height: '14px' }} />
-                          {article.readingTime} min
-                        </div>
-                        <div style={metaItemStyle}>
-                          <UserIcon style={{ width: '14px', height: '14px' }} />
-                          {article.author.name}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-
-                {/* View All Link */}
-                {articles.length > 3 && (
-                  <Link
-                    to={`/artigos?category=${category.slug}`}
-                    style={viewAllStyle}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#06b6d4';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#22d3ee';
-                    }}
-                  >
-                    Ver todos os {articles.length} artigos
-                    <ChevronRightIcon style={{ width: '16px', height: '16px' }} />
-                  </Link>
-                )}
-              </div>
-            );
-          })}
+        {/* Sort Options */}
+        <div style={sortContainerStyle}>
+          <span style={sortLabelStyle}>Ordenar por:</span>
+          <div style={sortButtonsStyle}>
+            <button
+              onClick={() => setSortBy('popular')}
+              style={sortBy === 'popular' ? activeSortButtonStyle : sortButtonStyle}
+            >
+              <StarIcon style={{ width: '14px', height: '14px', marginRight: '0.25rem' }} />
+              Popular
+            </button>
+            <button
+              onClick={() => setSortBy('recent')}
+              style={sortBy === 'recent' ? activeSortButtonStyle : sortButtonStyle}
+            >
+              <ClockIcon style={{ width: '14px', height: '14px', marginRight: '0.25rem' }} />
+              Recente
+            </button>
+            <button
+              onClick={() => setSortBy('readingTime')}
+              style={sortBy === 'readingTime' ? activeSortButtonStyle : sortButtonStyle}
+            >
+              <ClockIcon style={{ width: '14px', height: '14px', marginRight: '0.25rem' }} />
+              Tempo de Leitura
+            </button>
+          </div>
         </div>
 
-        {/* No Results */}
-        {filteredCategories.length === 0 && searchQuery && (
-          <div style={{ textAlign: 'center', color: '#94a3b8', padding: '4rem 0' }}>
-            <p style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>
-              Nenhum resultado encontrado para "{searchQuery}"
-            </p>
-            <p>Tente buscar por outros termos ou explore nossas categorias.</p>
+        {/* Articles List */}
+        {sortedArticles.length > 0 ? (
+          <div style={articlesListStyle}>
+            {sortedArticles.map((article) => (
+              <Link
+                key={article.id}
+                to={`/artigos/${article.slug}`}
+                style={articleItemStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#22d3ee';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#334155';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={articleHeaderStyle}>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={articleTitleStyle}>{article.title}</h3>
+                    <p style={articleExcerptStyle}>{article.excerpt}</p>
+                  </div>
+                  {article.featured && (
+                    <div style={featuredBadgeStyle}>
+                      <StarIcon style={{ width: '12px', height: '12px' }} />
+                      Destaque
+                    </div>
+                  )}
+                </div>
+
+                <div style={articleMetaStyle}>
+                  <div style={metaItemStyle}>
+                    <ClockIcon style={{ width: '14px', height: '14px' }} />
+                    {article.readingTime} min de leitura
+                  </div>
+                  <div style={metaItemStyle}>
+                    <UserIcon style={{ width: '14px', height: '14px' }} />
+                    {article.author.name}
+                  </div>
+                  <div style={metaItemStyle}>
+                    <EyeIcon style={{ width: '14px', height: '14px' }} />
+                    {Math.floor(Math.random() * 1000) + 100} visualizações
+                  </div>
+                  <div style={metaItemStyle}>
+                    <TagIcon style={{ width: '14px', height: '14px' }} />
+                    <div style={tagsStyle}>
+                      {article.tags.slice(0, 3).map((tag, index) => (
+                        <span key={index} style={tagStyle}>
+                          {tag}
+                        </span>
+                      ))}
+                      {article.tags.length > 3 && (
+                        <span style={tagStyle}>+{article.tags.length - 3}</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div style={noResultsStyle}>
+            <p>Nenhum artigo encontrado.</p>
+            <p>Tente ajustar os filtros ou termos de busca.</p>
           </div>
         )}
       </div>

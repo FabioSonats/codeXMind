@@ -24,6 +24,12 @@ export class ArticlesRepository {
       const reactHooks = await import(
         '../../mock-data/articles/react-hooks-tutorial.json'
       );
+      const reactContext = await import(
+        '../../mock-data/articles/react-context-api.json'
+      );
+      const reactPerformance = await import(
+        '../../mock-data/articles/react-performance-optimization.json'
+      );
       const typescript = await import(
         '../../mock-data/articles/typescript-guide.json'
       );
@@ -33,16 +39,42 @@ export class ArticlesRepository {
       const pythonLogic = await import(
         '../../mock-data/articles/logica-programacao-python.json'
       );
+      const pythonDataScience = await import(
+        '../../mock-data/articles/python-data-science.json'
+      );
       const oopJavaScript = await import(
         '../../mock-data/articles/programacao-orientada-objetos-javascript.json'
+      );
+      const jsModerno = await import(
+        '../../mock-data/articles/javascript-moderno-es6.json'
+      );
+      const jsAsync = await import(
+        '../../mock-data/articles/javascript-async-programming.json'
+      );
+      const jsFunctional = await import(
+        '../../mock-data/articles/javascript-functional-programming.json'
+      );
+      const iaGenerativa = await import(
+        '../../mock-data/articles/ia-generativa-2024.json'
+      );
+      const web3Blockchain = await import(
+        '../../mock-data/articles/web3-blockchain-2024.json'
       );
 
       articles.push(
         reactHooks.default,
+        reactContext.default,
+        reactPerformance.default,
         typescript.default,
         cssGrid.default,
         pythonLogic.default,
-        oopJavaScript.default
+        pythonDataScience.default,
+        oopJavaScript.default,
+        jsModerno.default,
+        jsAsync.default,
+        jsFunctional.default,
+        iaGenerativa.default,
+        web3Blockchain.default
       );
 
       return articles;
