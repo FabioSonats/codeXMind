@@ -15,6 +15,7 @@ export default function Header() {
   const navigation = [
     { name: 'Artigos', href: '/artigos' },
     { name: 'Categorias', href: '/categorias' },
+    { name: 'News', href: '/news' },
     { name: 'Biblioteca', href: '/biblioteca' },
     { name: 'IA', href: '/ia' },
     { name: 'Sobre', href: '/sobre' },
@@ -70,7 +71,6 @@ export default function Header() {
           {/* Logo */}
           <div>
             <Link to='/' style={logoStyle}>
-              <div style={logoIconStyle}>C</div>
               <span>CodeXMind</span>
             </Link>
           </div>
@@ -174,14 +174,14 @@ export default function Header() {
               zIndex: 40,
               ...(window.innerWidth >= 768
                 ? {
-                    position: 'absolute',
-                    top: '100%',
-                    left: 0,
-                    right: 0,
-                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                    backdropFilter: 'blur(8px)',
-                    borderBottom: '1px solid #334155',
-                  }
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  right: 0,
+                  backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                  backdropFilter: 'blur(8px)',
+                  borderBottom: '1px solid #334155',
+                }
                 : {}),
             }}
           >

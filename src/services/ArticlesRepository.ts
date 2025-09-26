@@ -60,6 +60,15 @@ export class ArticlesRepository {
       const web3Blockchain = await import(
         '../../mock-data/articles/web3-blockchain-2024.json'
       );
+      const chatgpt5 = await import(
+        '../../mock-data/articles/chatgpt-5-2025.json'
+      );
+      const quantumComputing = await import(
+        '../../mock-data/articles/quantum-computing-2025.json'
+      );
+      const teslaCybertruck = await import(
+        '../../mock-data/articles/tesla-cybertruck-delivery.json'
+      );
 
       articles.push(
         reactHooks.default,
@@ -74,7 +83,10 @@ export class ArticlesRepository {
         jsAsync.default,
         jsFunctional.default,
         iaGenerativa.default,
-        web3Blockchain.default
+        web3Blockchain.default,
+        chatgpt5.default,
+        quantumComputing.default,
+        teslaCybertruck.default
       );
 
       return articles;
@@ -232,6 +244,84 @@ export class ArticlesRepository {
         language: 'pt',
         readingTime: 20,
         featured: true,
+      },
+      {
+        id: '6',
+        title: 'ChatGPT-5: OpenAI Anuncia Nova Versão com Capacidades Revolucionárias',
+        slug: 'chatgpt-5-2025',
+        excerpt: 'OpenAI revela o ChatGPT-5 com capacidades multimodais avançadas, raciocínio complexo e integração com ferramentas profissionais.',
+        content: '# ChatGPT-5: A Nova Era da Inteligência Artificial\n\nA OpenAI anunciou oficialmente o lançamento do ChatGPT-5...',
+        author: {
+          id: '1',
+          name: 'Fábio Ferreira',
+          avatar: '/avatars/fabio.jpg',
+          bio: 'Desenvolvedor Full-Stack e criador de conteúdo técnico',
+          social: {
+            github: 'https://github.com/FabioSonats',
+            linkedin: 'https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/',
+            portfolio: 'https://fabiosonats.github.io/my-portifolio/',
+          },
+        },
+        publishedAt: '2025-01-15T10:00:00Z',
+        updatedAt: '2025-01-15T10:00:00Z',
+        tags: ['IA', 'OpenAI', 'ChatGPT', 'Tecnologia', 'Inovação'],
+        category: 'noticias',
+        language: 'pt',
+        readingTime: 8,
+        featured: true,
+        views: 1250,
+      },
+      {
+        id: '7',
+        title: 'Computação Quântica: IBM Anuncia Processador de 1000 Qubits',
+        slug: 'quantum-computing-2025',
+        excerpt: 'IBM revela seu mais poderoso processador quântico, prometendo resolver problemas que levariam milênios em computadores clássicos.',
+        content: '# Computação Quântica: O Salto Quântico de 2025\n\nA IBM anunciou o lançamento de seu processador quântico mais avançado...',
+        author: {
+          id: '1',
+          name: 'Fábio Ferreira',
+          avatar: '/avatars/fabio.jpg',
+          bio: 'Desenvolvedor Full-Stack e criador de conteúdo técnico',
+          social: {
+            github: 'https://github.com/FabioSonats',
+            linkedin: 'https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/',
+            portfolio: 'https://fabiosonats.github.io/my-portifolio/',
+          },
+        },
+        publishedAt: '2025-01-14T14:30:00Z',
+        updatedAt: '2025-01-14T14:30:00Z',
+        tags: ['Computação Quântica', 'IBM', 'Tecnologia', 'Inovação', 'Futuro'],
+        category: 'noticias',
+        language: 'pt',
+        readingTime: 12,
+        featured: false,
+        views: 890,
+      },
+      {
+        id: '8',
+        title: 'Tesla Cybertruck: Primeiras Entregas Começam no Brasil',
+        slug: 'tesla-cybertruck-delivery',
+        excerpt: 'Tesla inicia as primeiras entregas do Cybertruck no Brasil, marcando a chegada do veículo mais inovador da empresa ao mercado nacional.',
+        content: '# Tesla Cybertruck: A Revolução Chega ao Brasil\n\nA Tesla anunciou o início das entregas do Cybertruck no Brasil...',
+        author: {
+          id: '1',
+          name: 'Fábio Ferreira',
+          avatar: '/avatars/fabio.jpg',
+          bio: 'Desenvolvedor Full-Stack e criador de conteúdo técnico',
+          social: {
+            github: 'https://github.com/FabioSonats',
+            linkedin: 'https://www.linkedin.com/in/ferreira-f%C3%A1bio-98b4304a/',
+            portfolio: 'https://fabiosonats.github.io/my-portifolio/',
+          },
+        },
+        publishedAt: '2025-01-13T09:15:00Z',
+        updatedAt: '2025-01-13T09:15:00Z',
+        tags: ['Tesla', 'Cybertruck', 'Elétrico', 'Automóveis', 'Inovação'],
+        category: 'noticias',
+        language: 'pt',
+        readingTime: 10,
+        featured: true,
+        views: 2100,
       },
     ];
   }

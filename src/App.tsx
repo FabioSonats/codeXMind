@@ -11,6 +11,7 @@ import JavaScript from './pages/JavaScript';
 import ReactPage from './pages/React';
 import Python from './pages/Python';
 import Noticias from './pages/Noticias';
+import News from './pages/News';
 import Library from './pages/Library';
 import AI from './pages/AI';
 import About from './pages/About';
@@ -39,6 +40,7 @@ function AppContent() {
           <Route path="/react" element={<ReactPage />} />
           <Route path="/python" element={<Python />} />
           <Route path="/noticias" element={<Noticias />} />
+          <Route path="/news" element={<News />} />
           <Route path="/biblioteca" element={<Library />} />
           <Route path="/ia" element={<AI />} />
           <Route path="/sobre" element={<About />} />

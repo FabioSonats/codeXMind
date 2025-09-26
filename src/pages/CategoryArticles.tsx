@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   ArrowLeftIcon,
   ClockIcon,
@@ -27,25 +27,25 @@ export default function CategoryArticles() {
 
       try {
         setLoading(true);
-        
+
         // Load category info
         const categoriesRepository = new CategoriesRepository();
         const categoryData = await categoriesRepository.getCategoryBySlug(categorySlug);
-        
+
         if (!categoryData) {
           setError('Categoria não encontrada');
           return;
         }
-        
+
         setCategory(categoryData);
 
         // Load articles for this category
         const articlesRepository = new ArticlesRepository();
-        const allArticles = await articlesRepository.getArticles(1, 100, { 
+        const allArticles = await articlesRepository.getArticles(1, 100, {
           type: 'article',
-          category: categorySlug 
+          category: categorySlug
         });
-        
+
         setArticles(allArticles.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Erro ao carregar dados');
@@ -255,7 +255,7 @@ export default function CategoryArticles() {
           </div>
 
           <p style={categoryDescriptionStyle}>{category.description}</p>
-          
+
           <div style={articlesCountStyle}>
             {articles.length} {articles.length === 1 ? 'artigo encontrado' : 'artigos encontrados'}
           </div>
@@ -282,7 +282,7 @@ export default function CategoryArticles() {
               >
                 <h3 style={articleTitleStyle}>{article.title}</h3>
                 <p style={articleExcerptStyle}>{article.excerpt}</p>
-                
+
                 <div style={articleMetaStyle}>
                   <div style={metaItemStyle}>
                     <ClockIcon style={{ width: '14px', height: '14px' }} />
