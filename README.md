@@ -203,6 +203,14 @@ Configuração em `.prettierrc`:
 npm run build
 ```
 
+### Deploy Automático
+
+O projeto está configurado para deploy automático no GitHub Pages:
+
+- **URL de Produção**: https://fabiosonats.github.io/codeXMind/
+- **Deploy**: Automático a cada push na branch `main`
+- **Workflow**: `.github/workflows/deploy.yml`
+
 ### Variáveis de Ambiente
 
 Crie um arquivo `.env.local`:
